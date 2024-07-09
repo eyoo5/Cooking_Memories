@@ -37,6 +37,10 @@ public class Recipe_Page {
     @Column(name = "ingredient")
     private List<String> ingredients = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
     @OneToMany(mappedBy = "recipePage", cascade = CascadeType.ALL)
     private List<Recipe_Step> steps = new ArrayList<>();
 

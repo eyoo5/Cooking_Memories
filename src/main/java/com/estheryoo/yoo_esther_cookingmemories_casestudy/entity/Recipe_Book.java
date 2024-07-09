@@ -31,6 +31,10 @@ public class Recipe_Book {
         createdAt = new Date();
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="book_pages",
             joinColumns = @JoinColumn(name="book_id"),
