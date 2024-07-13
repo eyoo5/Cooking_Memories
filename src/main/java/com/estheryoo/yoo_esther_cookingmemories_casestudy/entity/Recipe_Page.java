@@ -89,4 +89,17 @@ public class Recipe_Page {
         this.ingredients = ingredients;
     }
 
+    @Override
+    public String toString() {
+        return "Recipe_Page{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", videoLink='" + videoLink + '\'' +
+                ", ingredients=" + ingredients +
+                ", user=" + user +
+                ", steps=" + steps +
+                ", books=" + books +
+                '}';
+    }
 }

@@ -21,6 +21,8 @@ public class Recipe_Book {
 
     private String title;
 
+    private String description;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
@@ -45,4 +47,15 @@ public class Recipe_Book {
        this.title = title;
    }
 
+    @Override
+    public String toString() {
+        return "Recipe_Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", createdAt=" + createdAt +
+                ", user=" + user +
+                ", pages=" + pages +
+                '}';
+    }
 }

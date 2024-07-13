@@ -23,9 +23,10 @@ public class Recipe_Step {
     @Column(nullable = false)
     private String description;
 
-    @Lob
-    @Column(nullable = true)
-    private byte[] image;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
+
 
     @ManyToOne
     @JoinColumn(name= "recipe_page_id", nullable = false)
@@ -39,14 +40,15 @@ public class Recipe_Step {
         this.subtitle = subtitle;
         this.description = description;
     }
-    public Recipe_Step(String description, byte[] image) {
-        this.description = description;
-        this.image = image;
-    }
 
-    public Recipe_Step(String subtitle, String description, byte[] image) {
-        this.subtitle = subtitle;
-        this.description = description;
-        this.image = image;
+    @Override
+    public String toString() {
+        return "Recipe_Step{" +
+                "id=" + id +
+                ", subtitle='" + subtitle + '\'' +
+                ", description='" + description + '\'' +
+                ", image=" + image +
+                ", recipePage=" + recipePage +
+                '}';
     }
 }
