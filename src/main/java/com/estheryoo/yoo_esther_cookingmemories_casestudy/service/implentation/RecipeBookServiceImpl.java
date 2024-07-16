@@ -66,29 +66,32 @@ public class RecipeBookServiceImpl implements RecipeBookService {
     }
 
     @Override
-    public Recipe_Book findRecipeBookByTitle(String title){
-        return recipeBookRepository.findByTitle(title);
+    public RecipeBookDTO findRecipeBookByTitle(String title){
+        Recipe_Book book = recipeBookRepository.findByTitle(title);
+        return convertEntityToDTO(book);
     }
 
     @Override
-    public List<RecipeBookDTO> getAllRecipeBooks(){
-        List<Recipe_Book> recipeBooks = recipeBookRepository.findAll();
+    public List<RecipeBookDTO> getAllRecipeBooks(Long userId){
+        List<Recipe_Book> recipeBooks = userRepository.findById(userId).get().getBooks();
         return recipeBooks.stream().map(this:: convertEntityToDTO).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteRecipeBook(Long userId) {
+        Recipe_Book book = recipeBookRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+        recipeBookRepository.delete(book);
+    }
+
+
     private RecipeBookDTO convertEntityToDTO(Recipe_Book recipeBook){
         RecipeBookDTO bookDTO = new RecipeBookDTO();
-        ;
         bookDTO.setTitle(recipeBook.getTitle());
         bookDTO.setDescription(recipeBook.getDescription());
         bookDTO.setCreatedAt(recipeBook.getCreatedAt().toString());
-        bookDTO.setImage(recipeBook.getImage().getUploaded());
-
-        if(recipeBook.getImage() != null){
-            byte[] byteArray = recipeBook.getImage().getUploaded();
-            bookDTO.setImage(byteArray);
-        }
         List <String> pages = recipeBook.getPages().stream().map(Recipe_Page::getTitle).collect(Collectors.toList());
+        bookDTO.setPages(pages);
         return bookDTO;
     }
 

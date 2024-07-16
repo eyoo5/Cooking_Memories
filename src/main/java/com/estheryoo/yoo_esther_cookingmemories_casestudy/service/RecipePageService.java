@@ -14,5 +14,5 @@ public interface RecipePageService {
     void updateRecipePage(Long userId, RecipePageDTO recipePageDTO);
     void deleteRecipePage(Long userId, RecipePageDTO recipePageDTO);
     Recipe_Page findRecipePageByTitle(String title);
-    List<RecipePageDTO> getAllRecipePages();
+    List<RecipePageDTO> getAllRecipePages(Long id);
 }

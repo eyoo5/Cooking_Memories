@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/login.css"/>
+    <title>Login</title>
+</head>
+<body>
+
+<section id="section_container" layout:fragment="content" >
+    <div id="login">
+        <p id="loginHeading">Login</p>
+        <form name="loginForm" method="post"  id="loginForm" action="/login">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" id="email" name="email" placeholder="Enter email" required>
+                        <p id="email-error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                        <p id="errorPassword" th:if="${error}" th:text="${error}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button type ="submit" id="submitLogin"> <strong>Login</strong> </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script src="/js/email-validation.js"></script>
+</section>
+
+</body>
+</html>

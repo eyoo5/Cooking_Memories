@@ -7,7 +7,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RoleReposit
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,13 +19,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository
+//                           ,PasswordEncoder passwordEncoder
+    ) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
+//        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+//        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         //Check if role already exists in database, if it does fine the role entity and add it to the list. Set it to user
         List <Role> roles = new ArrayList<>();
@@ -58,12 +60,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO findById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User with id " + id + " not found."));
+        return convertEntityToDTO(user);
+    }
+
+    @Override
     public List <UserDTO> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map((user) -> convertEntityToDTO(user))
                 .collect(Collectors.toList());
 
     }
+
 
     private UserDTO convertEntityToDTO(User user){
         UserDTO userDTO = new UserDTO();

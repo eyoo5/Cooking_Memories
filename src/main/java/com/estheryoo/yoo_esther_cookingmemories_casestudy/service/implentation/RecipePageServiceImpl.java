@@ -118,8 +118,8 @@ public class RecipePageServiceImpl implements RecipePageService {
     }
 
     @Override
-    public List <RecipePageDTO> getAllRecipePages() {
-        List<Recipe_Page> recipePages = recipePageRepository.findAll();
+    public List <RecipePageDTO> getAllRecipePages(Long id) {
+        List<Recipe_Page> recipePages = userRepository.findById(id).get().getPages();
         return recipePages.stream().map(this:: convertEntityToDTO)
                 .collect(Collectors.toList());
     }
@@ -130,7 +130,6 @@ public class RecipePageServiceImpl implements RecipePageService {
         pageDTO.setTitle(recipePage.getTitle());
         pageDTO.setCreatedAt(recipePage.getCreatedAt().toString());
         pageDTO.setIngredients(recipePage.getIngredients());
-        pageDTO.setImage(recipePage.getImage().getUploaded());
 
         if(recipePage.getDescription() != null){
             pageDTO.setDescription(recipePage.getDescription());

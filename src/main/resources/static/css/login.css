@@ -1,0 +1,101 @@
+body {
+    background-image: linear-gradient(to bottom, #f7797d, #FBD786, #C6FFDD);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#section_container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5em;
+}
+
+/*.roundedButton {*/
+/*    border-radius: 5px;*/
+/*    padding: 10px 20px;*/
+/*    font-size: 16px;*/
+/*    color: #41295a;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    font-family: Arial,sans-serif;*/
+/*}*/
+
+#login {
+    background:linear-gradient(to right,#EC6F66,#F3A183) ;
+    /*background-color: #093028;*/
+    width: 18rem;
+    height: 23rem;
+    text-align: center;
+    box-shadow: 10px 10px 5px dimgray;
+    border: 1px solid #EC6F66;
+    margin-top: 5rem;
+    border-radius: 10px;
+    font-family: Futura,Trebuchet MS,Arial,sans-serif;
+}
+
+#loginHeading{
+    margin-top: 1em;
+    color:white;
+    font-family: Futura,Trebuchet MS,Arial,sans-serif;
+    font-size: 2em;
+}
+
+#loginForm {
+    display: inline-block;
+    padding-inline: 2em;
+}
+
+#email {
+    margin-bottom: 1em;
+    width: 10rem;
+    height: 2em;
+    text-align: center;
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+#password {
+    margin-bottom: 1em;
+    width: 10rem;
+    height: 2em;
+    text-align: center;
+    border-radius: 5px;
+    border-color: transparent;
+
+}
+
+#submitLogin {
+    color: #41295a;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    height: 30px;
+    width: 80px;
+    border-radius: 5px;
+    border:transparent;
+    line-height: 40px;
+    padding-bottom: 40px;
+    /*background:linear-gradient(to right, #C6FFDD ,#E9E4F0);*/
+    background-color: #E9E4F0;
+    cursor: pointer;
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
+}
+
+#errorUsername{
+    color: #E9E4F0;
+    font-family: Arial,sans-serif;
+    font-size: 15px;
+}
+
+#errorPassword{
+    color: #E9E4F0;
+    font-family: Arial,sans-serif;
+    font-size: 15px;
+}
+
+#email-error {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}

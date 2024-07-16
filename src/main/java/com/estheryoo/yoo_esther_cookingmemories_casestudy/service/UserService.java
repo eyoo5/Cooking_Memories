@@ -11,5 +11,6 @@ import java.util.List;
 public interface UserService {
     void saveUser(UserDTO userDTO);
     User findByEmail(String email);
+    UserDTO findById(Long id);
     List<UserDTO> findAllUsers();
 }
