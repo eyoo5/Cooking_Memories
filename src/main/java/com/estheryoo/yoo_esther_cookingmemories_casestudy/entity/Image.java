@@ -18,7 +18,6 @@ public class Image {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
 
-
     @Lob
     @Column(name = "file", columnDefinition = "BLOB")
     private byte[] uploaded;

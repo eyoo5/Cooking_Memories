@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RecipePageRepository extends JpaRepository<Recipe_Page, Long> {
     Recipe_Page findByTitle(String title);
-    void deleteByTitle(String title);
 
 }

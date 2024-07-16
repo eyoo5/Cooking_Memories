@@ -27,6 +27,11 @@ public class Recipe_Book {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
+
+
     //on create set a date automatically
     @PrePersist
     protected void onCreate() {

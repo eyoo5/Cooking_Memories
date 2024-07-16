@@ -23,6 +23,14 @@ public class Recipe_Page {
 
     private String videoLink;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Date createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
     /*
     @ElementCollection and @CollectionTable:
     Indicates that ingredients is
@@ -36,6 +44,10 @@ public class Recipe_Page {
     )
     @Column(name = "ingredient")
     private List<String> ingredients = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", nullable = false)
