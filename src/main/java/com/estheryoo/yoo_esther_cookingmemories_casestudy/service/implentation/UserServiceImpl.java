@@ -6,6 +6,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.User;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RoleRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;

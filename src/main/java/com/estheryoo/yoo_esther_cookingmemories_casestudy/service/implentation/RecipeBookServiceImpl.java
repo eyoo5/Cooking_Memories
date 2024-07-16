@@ -10,6 +10,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookR
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,16 +25,15 @@ public class RecipeBookServiceImpl implements RecipeBookService {
 
     private final RecipeBookRepository recipeBookRepository;
     private final RecipePageRepository recipePageRepository;
-    private final ImageRepository imageRepository;
     private final UserRepository userRepository;
 
+    @Autowired
     public RecipeBookServiceImpl(RecipeBookRepository recipeBookRepository,
                                  RecipePageRepository recipePageRepository,
                                  ImageRepository imageRepository,
                                  UserRepository userRepository) {
         this.recipeBookRepository = recipeBookRepository;
         this.recipePageRepository = recipePageRepository;
-        this.imageRepository = imageRepository;
         this.userRepository = userRepository;
     }
 

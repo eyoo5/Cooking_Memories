@@ -26,13 +26,12 @@ public class RecipePageDTO {
     @NotEmpty(message="Please add a list of ingredients.")
     private List<String> ingredients;
 
+    private List<String> steps;
+
     public boolean hasDescription(){
         return this.description != null;
     }
     public boolean hasVideoLink(){
         return this.videoLink != null;
-    }
-    public boolean hasImage(){
-        return this.image != null;
     }
 }

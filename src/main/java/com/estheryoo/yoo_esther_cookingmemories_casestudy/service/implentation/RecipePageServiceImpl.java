@@ -7,7 +7,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookR
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +20,8 @@ public class RecipePageServiceImpl implements RecipePageService {
     private final UserRepository userRepository;
     private final RecipeBookRepository recipeBookRepository;
 
-    private RecipePageServiceImpl(RecipePageRepository recipePageRepository,
+    @Autowired
+    public RecipePageServiceImpl(RecipePageRepository recipePageRepository,
                                   UserRepository userRepository,
                                   ImageRepository imageRepository, RecipeBookRepository recipeBookRepository) {
         this.recipePageRepository = recipePageRepository;
@@ -119,11 +120,13 @@ public class RecipePageServiceImpl implements RecipePageService {
     @Override
     public List <RecipePageDTO> getAllRecipePages() {
         List<Recipe_Page> recipePages = recipePageRepository.findAll();
-        return recipePages.stream().map(this:: convertEntityToDTO).collect(Collectors.toList());
+        return recipePages.stream().map(this:: convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     private RecipePageDTO convertEntityToDTO(Recipe_Page recipePage){
         RecipePageDTO pageDTO = new RecipePageDTO();
+
         pageDTO.setTitle(recipePage.getTitle());
         pageDTO.setCreatedAt(recipePage.getCreatedAt().toString());
         pageDTO.setIngredients(recipePage.getIngredients());
@@ -136,7 +139,10 @@ public class RecipePageServiceImpl implements RecipePageService {
             pageDTO.setVideoLink(recipePage.getVideoLink());
         }
 
-       List <String> steps = recipePage.getSteps().stream().map(Recipe_Step::getDescription).collect(Collectors.toList());
+       List <String> steps = recipePage.getSteps().stream()
+               .map(Recipe_Step::getDescription)
+               .collect(Collectors.toList());
+        pageDTO.setSteps(steps);
         return pageDTO;
     }
 }

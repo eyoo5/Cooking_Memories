@@ -1,13 +1,13 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.service.implentation;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeStepDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Image;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Step;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.ImageRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeStepRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,14 +17,13 @@ import java.util.List;
 public class RecipeStepServiceImpl implements RecipeStepService {
     private final RecipeStepRepository recipeStepRepository;
     private final RecipePageRepository recipePageRepository;
-    private final ImageRepository imageRepository;
 
+    @Autowired
     public RecipeStepServiceImpl(RecipeStepRepository recipeStepRepository,
                                  RecipePageRepository recipePageRepository,
                                  ImageRepository imageRepository) {
         this.recipeStepRepository = recipeStepRepository;
         this.recipePageRepository = recipePageRepository;
-        this.imageRepository = imageRepository;
     }
 
     @Override

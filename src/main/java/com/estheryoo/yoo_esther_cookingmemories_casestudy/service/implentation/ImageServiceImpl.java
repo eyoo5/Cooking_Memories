@@ -10,15 +10,9 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookR
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeStepRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-
 
 @Service
 public class ImageServiceImpl implements ImageService {
