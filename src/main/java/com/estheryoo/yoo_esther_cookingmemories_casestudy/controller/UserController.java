@@ -35,12 +35,11 @@ public class UserController {
         //Get User
         UserDTO user = userService.findById(userId);
         List<RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(userId);
-        List<RecipePageDTO> recipePages = recipePageService.getAllRecipePages(userId);
+        List<RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByUser(userId);
 
         model.addAttribute("user", user);
         model.addAttribute("recipeBooks", recipeBooks);
         model.addAttribute("recipePages", recipePages);
-
         return "/fragments/user";
     }
 }

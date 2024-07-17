@@ -11,4 +11,5 @@ public interface RecipeStepService {
     void updateRecipeStep(RecipeStepDTO recipeStepDTO);
     void deleteRecipeStep(String pageTitle, RecipeStepDTO recipeStepDTO);
     List<RecipeStepDTO> getRecipeSteps(String pageTitle);
+    List <RecipeStepDTO> getRecipeStepsByPageId(Long pageId);
 }

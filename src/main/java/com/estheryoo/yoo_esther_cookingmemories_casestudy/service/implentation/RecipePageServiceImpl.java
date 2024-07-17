@@ -113,13 +113,28 @@ public class RecipePageServiceImpl implements RecipePageService {
     }
 
     @Override
-    public Recipe_Page findRecipePageByTitle(String title) {
-        return recipePageRepository.findByTitle(title);
+    public RecipePageDTO findRecipePageByTitle(String title) {
+        Recipe_Page recipePage = recipePageRepository.findByTitle(title);
+        return convertEntityToDTO(recipePage);
     }
 
     @Override
-    public List <RecipePageDTO> getAllRecipePages(Long id) {
+    public RecipePageDTO findRecipePageById(Long id) {
+        Recipe_Page recipePage = recipePageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe Page not found with id: " + id));
+        return convertEntityToDTO(recipePage);
+    }
+
+    @Override
+    public List <RecipePageDTO> getAllRecipePagesByUser(Long id) {
         List<Recipe_Page> recipePages = userRepository.findById(id).get().getPages();
+        return recipePages.stream().map(this:: convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List <RecipePageDTO> getAllRecipePagesByBook(Long bookId) {
+        List<Recipe_Page> recipePages = userRepository.findById(bookId).get().getPages();
         return recipePages.stream().map(this:: convertEntityToDTO)
                 .collect(Collectors.toList());
     }
@@ -130,13 +145,8 @@ public class RecipePageServiceImpl implements RecipePageService {
         pageDTO.setTitle(recipePage.getTitle());
         pageDTO.setCreatedAt(recipePage.getCreatedAt().toString());
         pageDTO.setIngredients(recipePage.getIngredients());
-
-        if(recipePage.getDescription() != null){
-            pageDTO.setDescription(recipePage.getDescription());
-        }
-        if(recipePage.getVideoLink() != null){
-            pageDTO.setVideoLink(recipePage.getVideoLink());
-        }
+        pageDTO.setDescription(recipePage.getDescription());
+        pageDTO.setVideoLink(recipePage.getVideoLink());
 
        List <String> steps = recipePage.getSteps().stream()
                .map(Recipe_Step::getDescription)

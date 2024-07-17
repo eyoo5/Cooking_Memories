@@ -13,6 +13,8 @@ public interface RecipePageService {
     void savePagesToBook(Long bookId, List<RecipePageDTO> pages);
     void updateRecipePage(Long userId, RecipePageDTO recipePageDTO);
     void deleteRecipePage(Long userId, RecipePageDTO recipePageDTO);
-    Recipe_Page findRecipePageByTitle(String title);
-    List<RecipePageDTO> getAllRecipePages(Long id);
+    RecipePageDTO findRecipePageByTitle(String title);
+    RecipePageDTO findRecipePageById(Long id);
+    List<RecipePageDTO> getAllRecipePagesByUser(Long id);
+    List<RecipePageDTO> getAllRecipePagesByBook(Long id);
 }

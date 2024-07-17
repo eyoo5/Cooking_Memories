@@ -20,7 +20,7 @@ public class Recipe_Step {
     //step name
     private String subtitle;
 
-    @Column(nullable = false)
+    @Column
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -29,7 +29,7 @@ public class Recipe_Step {
 
 
     @ManyToOne
-    @JoinColumn(name= "recipe_page_id", nullable = false)
+    @JoinColumn(name= "recipe_page_id")
     private Recipe_Page recipePage;
 
     public Recipe_Step(String description) {

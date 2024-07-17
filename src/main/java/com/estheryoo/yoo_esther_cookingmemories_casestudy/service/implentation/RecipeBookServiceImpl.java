@@ -1,6 +1,7 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.service.implentation;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Image;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Book;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
@@ -72,8 +73,21 @@ public class RecipeBookServiceImpl implements RecipeBookService {
     }
 
     @Override
+    public RecipeBookDTO findRecipeBookById(Long id){
+        Recipe_Book book = recipeBookRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+        return convertEntityToDTO(book);
+    }
+
+    @Override
     public List<RecipeBookDTO> getAllRecipeBooks(Long userId){
         List<Recipe_Book> recipeBooks = userRepository.findById(userId).get().getBooks();
+        return recipeBooks.stream().map(this:: convertEntityToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List <RecipeBookDTO> getAllRecipeBooksByPageId(Long pageId){
+        List <Recipe_Book> recipeBooks = recipeBookRepository.findByPage_Id(pageId);
         return recipeBooks.stream().map(this:: convertEntityToDTO).collect(Collectors.toList());
     }
 

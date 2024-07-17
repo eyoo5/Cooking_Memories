@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/signedInDefaultLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/book.css} " />
+    <title>User</title>
+</head>
+<body>
+
+<section id="section_container" layout:fragment="content" >
+    <div id="books_container" th:if="${recipeBooks}">
+        <div th:each= "book:${recipeBooks}">
+            <h3 class="heading" th:text="${book.title}" > </h3>
+            <table>
+                <tr>
+                    <td th:text="${book.description}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${book.createdAt}"></td>
+                </tr>
+            </table>
+            <div>
+                <div th:unless="${recipeBooks}">
+                    <p>No Book</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

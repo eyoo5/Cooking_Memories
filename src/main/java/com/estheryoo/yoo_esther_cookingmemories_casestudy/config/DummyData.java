@@ -1,20 +1,14 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.config;
 
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Book;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Role;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.User;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookRepository;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RoleRepository;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.*;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -23,6 +17,7 @@ public class DummyData implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final RecipeBookRepository recipeBookRepository;
     private final RecipePageRepository recipePageRepository;
+    private final RecipeStepRepository recipeStepRepository;
 //    private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -30,12 +25,13 @@ public class DummyData implements CommandLineRunner {
 //            , PasswordEncoder passwordEncoder
                      RoleRepository roleRepository,
                      RecipeBookRepository recipeBookRepository,
-                     RecipePageRepository recipePageRepository) {
+                     RecipePageRepository recipePageRepository, RecipeStepRepository recipeStepRepository) {
         this.userRepository = userRepository;
 //        this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.recipeBookRepository = recipeBookRepository;
         this.recipePageRepository = recipePageRepository;
+        this.recipeStepRepository = recipeStepRepository;
     }
 
     @Override
@@ -45,6 +41,16 @@ public class DummyData implements CommandLineRunner {
         createUsers();
         createBooks();
         createPages();
+        createSteps();
+        //assigning page to a book
+        assignPageToBook(1L,1L);
+        assignPageToBook(2L,2L);
+        assignPageToBook(3L,2L);
+
+        //assigning a step to a page
+        assignStepToPage(1L,1L);
+        assignStepToPage(2L,1L);
+        assignStepToPage(3L,1L);
     }
 
     private void createUsers() throws Exception{
@@ -69,10 +75,21 @@ public class DummyData implements CommandLineRunner {
     }
 
     private void createPages() throws Exception{
+        //ingredients arraylist:
+        ArrayList<String> ingredients1 = new ArrayList<>(Arrays.asList("Korean Cabbage","Grounded Pepper Flakes","Onion", "Garlic","Flour","Apples","Salt, Salted Shrimp"));
+        ArrayList<String> ingredients2 = new ArrayList<>(Arrays.asList("Kimchi", "Tofu", "Pork", "Soybean Paste", "Red Chili Paste"));
+        ArrayList<String> ingredients3 = new ArrayList<>(Arrays.asList("Soybean Paste", "Tofu","Green Squash", "Red Chili Paste"));
         //Create 3 Pages
-        createRecipePageIfNotExist(1L,"Cabbage Kimchi", "Fermented spicy cabbage");
-        createRecipePageIfNotExist(2L, "Kimchi Stew", "Spicy cabbage stew.");
-        createRecipePageIfNotExist(3L, "Soy Bean Stew", "Soy Bean based stew.");
+        createRecipePageIfNotExist(1L,"Cabbage Kimchi", "Fermented spicy cabbage", ingredients1);
+        createRecipePageIfNotExist(2L, "Kimchi Stew", "Spicy cabbage stew.", ingredients2);
+        createRecipePageIfNotExist(3L, "Soybean Paste Stew", "Soybean based stew.",ingredients3);
+    }
+
+    private void createSteps(){
+        //create steps for pages
+        createStepIfNotExist(1L, "Clean", "Soak korean cabbage in salt brine. When the cabbage is soft and limp, take them out of the water.");
+        createStepIfNotExist(2L, "Making the paste", "Boil water and flour on the stove. When it looks like mash potatoes, let it cool. Add pepper flakes, cooked flour, grounded garlic, grounded onion, and grounded apples together. Mix well.");
+        createStepIfNotExist(3L, "Put it together", "Spread the paste you made onto every leaf of the brined korean cabbage.");
     }
 
     private void createUserIfNotExist(String firstName, String lastName, String email) {
@@ -110,6 +127,7 @@ public class DummyData implements CommandLineRunner {
         }
     }
 
+
     private void createRecipeBookIfNotExist(Long id, String title, String description){
         Recipe_Book recipeBook = recipeBookRepository.findById(id).orElse(null);
         if (recipeBook == null) {
@@ -127,20 +145,79 @@ public class DummyData implements CommandLineRunner {
         }
     }
 
-    private void createRecipePageIfNotExist(Long id, String title, String description){
+    private void createRecipePageIfNotExist(Long id, String title, String description, ArrayList<String> ingredients){
         Recipe_Page recipePage = recipePageRepository.findById(id).orElse(null);
         if (recipePage == null) {
             recipePage = new Recipe_Page();
             recipePage.setId(id);
             recipePage.setTitle(title);
             recipePage.setDescription(description);
-
+            recipePage.setIngredients(ingredients);
+            //set user
             User user = userRepository.findById(1L).orElseThrow(()-> new RuntimeException("User not found"));
             recipePage.setUser(user);
+
             recipePageRepository.save(recipePage);
             System.out.println("Recipe Page saved successfully.");
         }else{
             System.out.println("Recipe Page already exists. Skipping creation.");
+        }
+    }
+
+    private void createStepIfNotExist(Long id, String subtitle, String description){
+        Recipe_Step recipeStep = recipeStepRepository.findById(id).orElse(null);
+        if (recipeStep == null) {
+            recipeStep = new Recipe_Step();
+            recipeStep.setId(id);
+            recipeStep.setSubtitle(subtitle);
+            recipeStep.setDescription(description);
+            recipeStepRepository.save(recipeStep);
+            System.out.println("Step saved successfully.");
+        }else{
+            System.out.println("Step already exists. Skipping creation.");
+        }
+
+    }
+
+    private void assignPageToBook(Long pageId, Long bookId){
+        Recipe_Book recipeBook = recipeBookRepository.findById(bookId).orElse(null);
+        Recipe_Page recipePage = recipePageRepository.findById(pageId).orElse(null);
+
+        if (recipeBook != null && recipePage != null) {
+            if (recipeBook.getPages() == null) {
+                recipeBook.setPages(new ArrayList<>()); // Initialize if null
+            }
+            if(!recipeBook.getPages().contains(recipePage)){
+            recipeBook.getPages().add(recipePage);
+            recipeBookRepository.save(recipeBook);
+            System.out.println("Page added successfully.");
+            }else{
+            System.out.println("Page already exists in book. Skipping creation.");
+            }
+        }else{
+            System.out.println("Recipe book and/or recipe page does not exist. Skipping creation.");
+        }
+    }
+
+    private void assignStepToPage(Long stepId, Long pageId){
+        Recipe_Step recipeStep = recipeStepRepository.findById(stepId).orElse(null);
+        Recipe_Page recipePage = recipePageRepository.findById(pageId).orElse(null);
+
+        if (recipeStep != null && recipePage != null) {
+//            if (recipePage.getSteps() == null) {
+//                recipePage.setSteps(new ArrayList<>()); // Initialize if null
+//            }
+            if(!recipePage.getSteps().contains(recipeStep)){
+                recipeStep.setRecipePage(recipePage);
+                recipePage.getSteps().add(recipeStep);
+                recipePageRepository.save(recipePage);
+
+                System.out.println("Step added to page successfully.");
+            }else{
+                System.out.println("Step already exists in page. Skipping creation.");
+            }
+        }else{
+            System.out.println("Recipe page and/or recipe step does not exist. Skipping creation.");
         }
     }
 }

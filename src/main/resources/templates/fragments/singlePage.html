@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/signedInDefaultLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/page.css} " />
+    <title>User</title>
+</head>
+<body>
+
+<section id="section_container" layout:fragment="content" >
+    <div id="books_recipePage" >
+        <div th:if="${recipePage}">
+            <h3 class="heading" th:text="${recipePage.title}" > </h3>
+            <table>
+                <tr>
+                    <td th:text="${recipePage.description}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${recipePage.createdAt}"></td>
+                </tr>
+            </table>
+            <div>
+                <div th:unless="${recipePage}">
+                    <p>No Book</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="recipe_steps">
+        <h3 class = "heading">Recipe Steps: </h3>
+        <div th:if="${recipeSteps}">
+            <table th:each="step:${recipeSteps}">
+                <tr>
+                    <td th:text ="${step.subtitle}"></td>
+                </tr>
+                <tr th:text = "${step.description}"></tr>
+            </table>
+        </div>
+        <div th:unless = "${recipeSteps}">
+            <p>No Steps</p>
+        </div>
+    </div>
+
+    <div id="related_books">
+        <h5>Associated Books</h5>
+        <div th:if = "${recipeBooks}">
+            <div th:each= "book:${recipeBooks}">
+                <table>
+                    <tr>
+                        <td th:text = "${book.title}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div th:unless = "${recipeBooks}">
+                <p>No books</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+body {
+    background-image: linear-gradient(to bottom, #f7797d, #FBD786, #C6FFDD);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+}
+#section_container{
+    margin-top: 2em;
+    margin-bottom: 5em;
+    margin-left: 2em;
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    font-family: Futura,Trebuchet MS,Arial,sans-serif;
+}
+
+.heading {
+    font-family: Futura,Trebuchet MS,Arial,sans-serif;
+}

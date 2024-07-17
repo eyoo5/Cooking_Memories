@@ -1,6 +1,8 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.service.implentation;
 
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeStepDTO;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Book;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Step;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.ImageRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeStepServiceImpl implements RecipeStepService {
@@ -79,6 +82,12 @@ public class RecipeStepServiceImpl implements RecipeStepService {
     }
 
     @Override
+    public List<RecipeStepDTO> getRecipeStepsByPageId(Long pageId){
+        List <Recipe_Step> steps = recipeStepRepository.findByPage_Id(pageId);
+       return steps.stream().map(this:: convertEntityToDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public List <RecipeStepDTO> getRecipeSteps (String pageTitle){
         Recipe_Page page = recipePageRepository.findByTitle(pageTitle);
         List<Recipe_Step> steps = page.getSteps();
@@ -92,5 +101,13 @@ public class RecipeStepServiceImpl implements RecipeStepService {
             stepDTOs.add(stepDTO);
         }
         return stepDTOs;
+    }
+
+    private RecipeStepDTO convertEntityToDTO(Recipe_Step recipeStep){
+        RecipeStepDTO stepDTO = new RecipeStepDTO();
+        stepDTO.setId(recipeStep.getId());
+        stepDTO.setDescription(recipeStep.getDescription());
+        stepDTO.setSubtitle(recipeStep.getSubtitle());
+        return stepDTO;
     }
 }
