@@ -19,11 +19,23 @@ public class Image {
     private long id;
 
     @Lob
-    @Column(name = "file", columnDefinition = "BLOB")
+    @Column(columnDefinition = "BLOB")
     private byte[] uploaded;
+
+    private String linked;
+
+    @OneToOne(mappedBy = "image")
+    private User user;
+
+    @OneToOne(mappedBy = "image")
+    private Recipe_Book book;
+
+    @OneToOne(mappedBy = "image")
+    private Recipe_Page page;
 
     @OneToOne(mappedBy = "image")
     private Recipe_Step step;
+
 
     public Image(byte[] uploaded) {
         this.uploaded = uploaded;

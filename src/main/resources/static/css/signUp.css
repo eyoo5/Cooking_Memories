@@ -1,0 +1,57 @@
+body {
+    background-image: linear-gradient(to bottom,#FFEDBC,#ff9068);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+.roundedButton {
+    color: #41295a;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+    border:transparent;
+    line-height: 40px;
+    padding-bottom: 40px;
+    /*background:linear-gradient(to right, #C6FFDD ,#E9E4F0);*/
+    background-color: #E9E4F0;
+    cursor: pointer;
+    position: absolute; /*relative to parent*/
+    bottom: 50px; /* Will be from the bottom*/
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
+}
+
+#sign_up_form_container{
+    margin-top: 5em;
+}
+
+#alert_container{
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+#heading_container{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding-top:1em;
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
+    background-color: #E9E4F0;
+}
+
+
+#button_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#register_container{
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+

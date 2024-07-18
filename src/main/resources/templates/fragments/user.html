@@ -9,9 +9,8 @@
     <title>User</title>
 </head>
 <body>
-
 <section id="section_container" layout:fragment="content" >
-    <div th:if="${user}">
+    <div th:if="${user}" id="user_container">
         <h2 th:text="${user.firstName} + ' '+ ${user.lastName}"></h2>
         <p th:text="'Registered Email: '+ ${user.email}"></p>
     </div>
@@ -20,24 +19,28 @@
     </div>
 
     <div id="books_container">
+        <div id="cook_book_container">
         <h3 class="heading" th:if="${recipeBooks}"> My Cook Books </h3>
-        <div th:each="book:${recipeBooks}">
-        <table>
-            <tr>
-                <td th:text="${book.title}"></td>
-            </tr>
-            <tr>
-                <td th:text="${book.description}"></td>
-            </tr>
-            <tr>
-                <td th:text="${book.createdAt}"></td>
-            </tr>
-        </table>
+        <div id="book_container">
+        <div th:each="book:${recipeBooks}" >
+            <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background: linear-gradient(to right, #FFEFBA, #FFFFFF); box-shadow: 10px 10px 5px #948E99;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+                    <h5 class="card-title" th:text="${book.title}">Card title</h5>
+                    <p class="card-text" th:text="${book.description}" style="text-align: center"></p>
+                    <p class="card-text" th:text="${book.createdAt}"  ></p>
+                    <button class="roundedButton" >
+                    <a th:href="@{/book/{bookId}(bookId=${book.id})}" id="go_to_link" >Go To Book</a>
+                    </button>
+                </div>
+            </div>
+            </div>
             <div>
                 <div th:unless="${recipeBooks}">
                     <p>No Books</p>
                 </div>
-            </div>
+        </div>
+        </div>
         </div>
     </div>
 

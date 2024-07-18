@@ -33,30 +33,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserDTO userDTO) {
         User user = new User();
+
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
 //        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         //Check if role already exists in database, if it does fine the role entity and add it to the list. Set it to user
         List <Role> roles = new ArrayList<>();
+        if(userDTO.getRoles() != null) {
         for (String roleName : userDTO.getRoles()) {
             if(roleName != null && !roleName.isEmpty()){
                 Role roleEntity = roleRepository.findByName(roleName);
                roles.add(roleEntity);
+                user.setRoles(roles);
             }else{
                 System.out.println("Role " + roleName + " not found in the repository.");
+                }
             }
         }
-
-        //Assign the role to the user
-        user.setRoles(roles);
         userRepository.save(user);
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserDTO findByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        return convertEntityToDTO(user);
     }
 
     @Override
@@ -76,11 +79,15 @@ public class UserServiceImpl implements UserService {
 
     private UserDTO convertEntityToDTO(User user){
         UserDTO userDTO = new UserDTO();
-        List <String> roleNames = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setRoles(roleNames);
-        return userDTO;
+        if(user != null) {
+         List <String> roleNames = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
+            userDTO.setFirstName(user.getFirstName());
+            userDTO.setLastName(user.getLastName());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setRoles(roleNames);
+            return userDTO;
+        }else{
+            return null;
+        }
     }
 }

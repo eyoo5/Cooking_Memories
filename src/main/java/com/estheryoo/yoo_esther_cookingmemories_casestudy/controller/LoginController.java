@@ -28,7 +28,7 @@ public class LoginController {
 
     // validating request from form => then it redirects to  /user endpoint.
     @PostMapping("/login")
-    public String loginPost(@RequestParam String email, @RequestParam String password, Model model) {
+    public String loggingIn(@RequestParam String email, @RequestParam String password, Model model) {
         if(email.equals("eyoo@gmail.com") && password.equals("1234")) {
             return "redirect:/user{id}";
         }else{
@@ -36,4 +36,20 @@ public class LoginController {
             return "/fragments/login";//return with error page with error message
         }
     }
+
+//    @PostMapping("/login")
+//    public String login(@RequestParam String username, @RequestParam String password, Model model) {
+//        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+//
+//        // Create authentication token
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+//
+//        // Perform authentication
+//        Authentication authenticated = authenticationManager.authenticate(authentication);
+//
+//        // Set authentication in SecurityContext
+//        SecurityContextHolder.getContext().setAuthentication(authenticated);
+//
+//        return "redirect:/dashboard"; // Redirect to dashboard or another secured page
+//    }
 }

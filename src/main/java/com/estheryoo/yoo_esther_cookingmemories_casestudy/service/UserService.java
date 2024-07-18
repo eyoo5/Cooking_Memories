@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public interface UserService {
     void saveUser(UserDTO userDTO);
-    User findByEmail(String email);
+    UserDTO findByEmail(String email);
     UserDTO findById(Long id);
     List<UserDTO> findAllUsers();
 }

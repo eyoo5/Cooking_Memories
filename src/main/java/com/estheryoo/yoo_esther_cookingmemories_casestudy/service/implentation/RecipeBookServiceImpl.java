@@ -101,6 +101,7 @@ public class RecipeBookServiceImpl implements RecipeBookService {
 
     private RecipeBookDTO convertEntityToDTO(Recipe_Book recipeBook){
         RecipeBookDTO bookDTO = new RecipeBookDTO();
+        bookDTO.setId(recipeBook.getId());
         bookDTO.setTitle(recipeBook.getTitle());
         bookDTO.setDescription(recipeBook.getDescription());
         bookDTO.setCreatedAt(recipeBook.getCreatedAt().toString());

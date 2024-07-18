@@ -141,7 +141,7 @@ public class RecipePageServiceImpl implements RecipePageService {
 
     private RecipePageDTO convertEntityToDTO(Recipe_Page recipePage){
         RecipePageDTO pageDTO = new RecipePageDTO();
-
+        pageDTO.setId(recipePage.getId());
         pageDTO.setTitle(recipePage.getTitle());
         pageDTO.setCreatedAt(recipePage.getCreatedAt().toString());
         pageDTO.setIngredients(recipePage.getIngredients());

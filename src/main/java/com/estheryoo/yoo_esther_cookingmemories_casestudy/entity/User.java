@@ -29,6 +29,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List <Recipe_Book> books = new ArrayList<>();
 

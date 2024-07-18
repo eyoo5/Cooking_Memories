@@ -9,6 +9,5 @@ import lombok.*;
 public class ImageDTO {
     private Long id;
     private byte[] uploaded;
-    // Describes what it is linked to: step, page, book.
     private String linked;
 }
