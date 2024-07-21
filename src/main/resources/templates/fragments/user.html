@@ -10,27 +10,51 @@
 </head>
 <body>
 <section id="section_container" layout:fragment="content" >
-    <div th:if="${user}" id="user_container">
+    <div th:if="${user}" id="top_container">
+<!--        <img id="profile_pic"/>-->
+    <div  id="user_container">
         <h2 th:text="${user.firstName} + ' '+ ${user.lastName}"></h2>
         <p th:text="'Registered Email: '+ ${user.email}"></p>
     </div>
     <div th:unless="${user}">
         <p>No User Found</p>
     </div>
+        <div id="create_buttons_container">
+        <div id="create_book_container">
+            <button type="button" class="create_button">
+<!--                <a th:href="@{}" class="go_to_link">Recipe</a>-->
+                Create New Cook Book
+            </button>
+        </div>
+        <div id="create_page_container">
+            <button type="button" class="create_button">
+                Create New Recipe Page
+            </button>
+        </div>
+        </div>
+    </div>
 
     <div id="books_container">
-        <div id="cook_book_container">
+        <div class="card" id="cook_book_container">
+            <div class="card-header" style=" margin-bottom: 1em; background:#41295a; color:#E9E4F0; display: flex; flex-direction: row; justify-content: space-between">
         <h3 class="heading" th:if="${recipeBooks}"> My Cook Books </h3>
+                <div class="search_bar">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit" >Search</button>
+                    </form>
+                </div>
+            </div>
         <div id="book_container">
         <div th:each="book:${recipeBooks}" >
-            <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background: linear-gradient(to right, #FFEFBA, #FFFFFF); box-shadow: 10px 10px 5px #948E99;">
+            <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background: #FFFF; box-shadow: 10px 10px 5px #948E99;">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
                     <h5 class="card-title" th:text="${book.title}">Card title</h5>
                     <p class="card-text" th:text="${book.description}" style="text-align: center"></p>
                     <p class="card-text" th:text="${book.createdAt}"  ></p>
                     <button class="roundedButton" >
-                    <a th:href="@{/book/{bookId}(bookId=${book.id})}" id="go_to_link" >Go To Book</a>
+                    <a th:href="@{/book/{bookId}(bookId=${book.id})}" class="go_to_link" > Book</a>
                     </button>
                 </div>
             </div>
@@ -45,23 +69,42 @@
     </div>
 
     <div id="recipes_container">
-        <h3 class="heading" th:if="${recipePages}"> My Recipes</h3>
+        <div class ="card" id="recipe_container">
+            <div class="card-header" style="margin-bottom: 1em; background:#41295a; color:#E9E4F0; display: flex; flex-direction: row; justify-content: space-between" >
+              <h3 class="heading" th:if="${recipePages}"> My Recipes</h3>
+                <div class="search_bar">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit" >Search</button>
+                    </form>
+                </div>
+            </div>
+            <div id="pages_container">
             <div th:each="page:${recipePages}">
-                <table>
-                    <tr th:text="${page.title}">
-                        <td th:text="${page.description}"></td>
-                        <td th:text="${page.createdAt}"></td>
-                        <td></td>
-                    </tr>
-                </table>
+                <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background:white; box-shadow: 10px 10px 5px #948E99;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+                        <h5 class="card-title" th:text="${page.title}">Card title</h5>
+                        <p class="card-text" th:text="${page.description}" style="text-align: center"></p>
+                        <p class="card-text" th:text="${page.createdAt}" ></p>
+                        <button class="roundedButton" >
+                            <a th:href="@{/recipe/{pageId}(pageId=${page.id})}" class="go_to_link">Recipe</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
                 <div>
                     <div th:unless="${recipeBooks}">
                         <p>No Books</p>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </section>
 
+<script src="/js/user.js"></script>
 </body>
 </html>

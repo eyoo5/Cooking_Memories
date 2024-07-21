@@ -12,8 +12,15 @@
 
 <section id="section_container" layout:fragment="content" >
     <div id="login">
+        <div class="col-md-6 offset-md-3">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Invalid Email and Password.</div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-success">You have been logged out.</div>
+            </div>
         <p id="loginHeading">Login</p>
-        <form name="loginForm" method="post"  id="loginForm" action="/login">
+        <form name="loginForm" method="post"  id="loginForm" th:action ="@{/login}" role="form">
             <table>
                 <tr>
                     <td>

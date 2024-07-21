@@ -1,13 +1,14 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 
 
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.security.CustomUserDetailsService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,7 +16,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    @GetMapping("/")
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/landing")
     public String defaultPage(){return "fragments/home";}
 
     @GetMapping("/home")
@@ -26,30 +37,39 @@ public class LoginController {
         return "fragments/login";
     }
 
-    // validating request from form => then it redirects to  /user endpoint.
+    // validating email redirects back to login with error
     @PostMapping("/login")
     public String loggingIn(@RequestParam String email, @RequestParam String password, Model model) {
-        if(email.equals("eyoo@gmail.com") && password.equals("1234")) {
-            return "redirect:/user{id}";
-        }else{
             model.addAttribute("error","Incorrect email or password");
             return "/fragments/login";//return with error page with error message
-        }
     }
 
+
+
 //    @PostMapping("/login")
-//    public String login(@RequestParam String username, @RequestParam String password, Model model) {
-//        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+//    public String authenticateUser(@RequestParam("email") String email,
+//                                   @RequestParam("password") String password,
+//                                   Model model) {
+//        try{
 //
-//        // Create authentication token
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+//        // Perform Authentication
+//        Authentication authentication = authenticationManager.authenticate(
+//                new EmailPasswordAuthenticationToken(email, password));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
 //
-//        // Perform authentication
-//        Authentication authenticated = authenticationManager.authenticate(authentication);
+//        if(authentication.isAuthenticated()) {
+//            UserDTO userDTO = userService.findByEmail(email);
+//            Long id = userDTO.getId();
 //
-//        // Set authentication in SecurityContext
-//        SecurityContextHolder.getContext().setAuthentication(authenticated);
-//
-//        return "redirect:/dashboard"; // Redirect to dashboard or another secured page
+//            return "redirect:/user/"+id;
+//        }else{
+//            model.addAttribute("error","Incorrect email or password");
+//            return "/fragments/login";//return with error page with error message
+//        }
+//        }catch(Exception e){
+//            model.addAttribute("error","An error occured during Login");
+//            return "/fragments/login";
+//        }
 //    }
+
 }

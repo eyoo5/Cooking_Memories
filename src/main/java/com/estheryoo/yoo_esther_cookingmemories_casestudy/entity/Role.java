@@ -3,9 +3,10 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
 
 @Getter
 @Setter
@@ -18,11 +19,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="role_name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
 
     public Role(String name) {
         this.name = name;
@@ -33,7 +32,6 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

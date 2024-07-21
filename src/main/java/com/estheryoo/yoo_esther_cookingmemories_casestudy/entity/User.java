@@ -2,8 +2,13 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -24,6 +29,7 @@ public class User {
     private String lastName;
 
     @Column(nullable = false, unique = true)
+    @NaturalId(mutable = true)
     private String email;
 
     @Column(nullable = false)
@@ -39,11 +45,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List <Recipe_Page> pages = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name="user_roles",
-                joinColumns = @JoinColumn(name="user_id"),
-                inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
 
     public User(String firstName, String lastName, String email, String password) {
@@ -60,10 +65,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", books=" + books +
-                ", pages=" + pages +
-                ", roles=" + roles +
+                ", role=" + role +
                 '}';
     }
 }

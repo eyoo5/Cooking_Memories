@@ -27,6 +27,17 @@ public class UserDTO {
     @NotEmpty(message = "Password should not be empty")
     private String password;
 
-    private List<String> roles;
+    private String Role;
 
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", Role='" + Role + '\'' +
+                '}';
+    }
 }

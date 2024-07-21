@@ -33,26 +33,29 @@ body {
 #login {
     background:linear-gradient(to right,#EC6F66,#F3A183) ;
     /*background-color: #093028;*/
-    width: 18rem;
-    height: 23rem;
+    width: 20rem;
+    height: 26rem;
     text-align: center;
     box-shadow: 10px 10px 5px dimgray;
     border: 1px solid #EC6F66;
     margin-top: 5rem;
     border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
     font-family: Futura,Trebuchet MS,Arial,sans-serif;
 }
 
 #loginHeading{
-    margin-top: 1em;
     color:white;
     font-family: Futura,Trebuchet MS,Arial,sans-serif;
     font-size: 2em;
 }
 
 #loginForm {
-    display: inline-block;
-    padding-inline: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #email {

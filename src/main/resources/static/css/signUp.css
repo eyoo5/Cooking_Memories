@@ -7,7 +7,7 @@ body {
 
 
 .roundedButton {
-    color: #41295a;
+    color: #E9E4F0;
     margin-top: 1em;
     margin-bottom: 1em;
     height: 30px;
@@ -17,7 +17,7 @@ body {
     line-height: 40px;
     padding-bottom: 40px;
     /*background:linear-gradient(to right, #C6FFDD ,#E9E4F0);*/
-    background-color: #E9E4F0;
+    background-color: #41295a;
     cursor: pointer;
     position: absolute; /*relative to parent*/
     bottom: 50px; /* Will be from the bottom*/
@@ -26,6 +26,12 @@ body {
 
 #sign_up_form_container{
     margin-top: 5em;
+}
+
+#form-container{
+    background-color: #E9E4F0;
+    color: #41295a;
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
 }
 
 #alert_container{
@@ -38,7 +44,8 @@ body {
     margin-bottom: 2em;
     padding-top:1em;
     font-family:Futura,Trebuchet MS,Arial,sans-serif;
-    background-color: #E9E4F0;
+    background-color: #41295a;
+    color: #E9E4F0;
 }
 
 

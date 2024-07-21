@@ -4,11 +4,17 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.User;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.UserDTO;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.security.CustomUserDetailsService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,28 +31,43 @@ public class UserController {
     private final UserService userService;
     private final RecipeBookService recipeBookService;
     private final RecipePageService recipePageService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     public UserController(UserService userService,
                           RecipeBookService recipeBookService,
-                          RecipePageService recipePageService){
+                          RecipePageService recipePageService,
+                          CustomUserDetailsService customUserDetailsService){
         this.userService = userService;
         this.recipeBookService = recipeBookService;
         this.recipePageService = recipePageService;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
-    @GetMapping("/user/{userId}")
-    public String getUser (@PathVariable Long userId, Model model){
-        //Get User
-        UserDTO user = userService.findById(userId);
-        List<RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(userId);
-        List<RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByUser(userId);
 
-        model.addAttribute("user", user);
-        model.addAttribute("recipeBooks", recipeBooks);
-        model.addAttribute("recipePages", recipePages);
-        return "/fragments/user";
+    @GetMapping("/user")
+    public String getUser ( Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Get authenticated user details
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String email = userDetails.getUsername();
+
+            UserDTO user = userService.findByEmail(email);
+            List<RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(user.getId());
+            List<RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByUser(user.getId());
+
+            model.addAttribute("user", user);
+            model.addAttribute("recipeBooks", recipeBooks);
+            model.addAttribute("recipePages", recipePages);
+            return "/fragments/user";
+
+        } else {
+            return "redirect:/login?error";
+        }
     }
+
 
     @GetMapping("/register")
     public String showRegistrationForm (Model model){
@@ -72,4 +93,6 @@ public class UserController {
         userService.saveUser(user);
         return "redirect:/register?success";
     }
+
+
 }

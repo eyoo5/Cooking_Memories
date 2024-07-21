@@ -8,8 +8,11 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -46,4 +49,22 @@ public class RecipeBookController {
         model.addAttribute("recipeBooks", recipeBooks);
         return "/fragments/allBooks";
     }
+
+    @GetMapping("/book/createBook")
+    public String createBook(Model model){
+        RecipeBookDTO recipeBook = new RecipeBookDTO();
+        model.addAttribute("recipeBook", recipeBook);
+        return "/fragments/createBook";
+    }
+
+//    @PostMapping("/book/save")
+//    public String saveBook(@ModelAttribute("recipeBook") RecipeBookDTO recipeBook, BindingResult result, Model model){
+//        if(result.hasErrors()){
+//            model.addAttribute("recipeBook", recipeBook);
+//            return "/fragments/createBook";
+//        }
+//        recipeBookService.saveRecipeBook(recipeBook);
+//        return "redirect:/book/" + recipeBook.getId();
+//    }
+
 }

@@ -4,6 +4,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.*;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,16 +19,16 @@ public class DummyData implements CommandLineRunner {
     private final RecipeBookRepository recipeBookRepository;
     private final RecipePageRepository recipePageRepository;
     private final RecipeStepRepository recipeStepRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public DummyData(UserRepository userRepository,
-//            , PasswordEncoder passwordEncoder
+                     PasswordEncoder passwordEncoder,
                      RoleRepository roleRepository,
                      RecipeBookRepository recipeBookRepository,
                      RecipePageRepository recipePageRepository, RecipeStepRepository recipeStepRepository) {
         this.userRepository = userRepository;
-//        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.recipeBookRepository = recipeBookRepository;
         this.recipePageRepository = recipePageRepository;
@@ -61,9 +62,9 @@ public class DummyData implements CommandLineRunner {
 
     private void createRoles() throws Exception{
         // Create 3 Roles
-        createRoleIfNotExist(1L, "ADMIN");
-        createRoleIfNotExist(2L, "USER");
-        createRoleIfNotExist(3L, "WITH_LINK");
+        createRoleIfNotExist(1L, "ROLE_ADMIN");
+        createRoleIfNotExist(2L, "ROLE_USER");
+        createRoleIfNotExist(3L, "ROLE_WITH_LINK");
     }
 
 
@@ -99,14 +100,12 @@ public class DummyData implements CommandLineRunner {
             user1.setFirstName(firstName);
             user1.setLastName(lastName);
             user1.setEmail(email);
-            user1.setPassword("123");// You may want to encode this password
+            String password = passwordEncoder.encode("123");
+            user1.setPassword(password);// You may want to encode this password
 
             //setting admin role
-            List<Role> roles = new ArrayList<>();
-            Role admin = roleRepository.findByName("ADMIN");
-            roles.add(admin);
-
-            user1.setRoles(roles);
+            Role admin = roleRepository.findByName("ROLE_ADMIN");
+            user1.setRole(admin);
             userRepository.save(user1);
             System.out.println("User saved successfully.");
         } else {
