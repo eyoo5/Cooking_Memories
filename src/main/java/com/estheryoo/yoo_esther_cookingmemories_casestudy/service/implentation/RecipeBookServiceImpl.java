@@ -12,6 +12,8 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageR
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -118,6 +120,13 @@ public class RecipeBookServiceImpl implements RecipeBookService {
     public List<RecipeBookDTO> getAllRecipeBooks(Long userId){
         List<Recipe_Book> recipeBooks = userRepository.findById(userId).get().getBooks();
         return recipeBooks.stream().map(this:: convertEntityToDTO).collect(Collectors.toList());
+    }
+
+    //using pagination to retrieve books in sets to display
+    @Override
+    public Page<RecipeBookDTO> findAllRecipeBooks(Long userId, Pageable pageable){
+        Page<Recipe_Book> recipeBooksPage = recipeBookRepository.findByUserId(userId,pageable);
+        return recipeBooksPage.map(recipeBook -> convertEntityToDTO(recipeBook));
     }
 
     @Override

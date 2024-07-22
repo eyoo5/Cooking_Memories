@@ -51,6 +51,22 @@
                     </div>
                 </div>
             </div>
+        <div th:if="${recipeBooks.totalPages > 1}">
+            <ul class="pagination">
+                <li th:class="${recipeBooks.first ? 'disabled' : ''}">
+                    <a th:href="@{/books(page=${recipeBooks.number - 1}, size=${recipeBooks.size})}" aria-label="Previous" class="paginationLink">&laquo;</a>
+                </li>
+
+
+                <li th:each="pageNumber : ${#numbers.sequence(0, recipeBooks.totalPages - 1)}" th:class="${recipeBooks.number == pageNumber ? 'active' : ''}">
+                    <a th:href="@{/books(page=${pageNumber}, size=${recipeBooks.size})}" th:text="${pageNumber + 1}" class="paginationLink"></a>
+                </li>
+                <li th:class="${recipeBooks.last ? 'disabled' : ''}">
+                    <a th:href="@{/books(page=${recipeBooks.number + 1}, size=${recipeBooks.size})}" aria-label="Next" class="paginationLink">&raquo;</a>
+                    <span aria-hidden="true">&raquo;</span>
+                </li>
+            </ul>
+        </div>
         </div>
     </div>
 

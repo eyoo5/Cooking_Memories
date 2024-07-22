@@ -3,11 +3,15 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.UserDTO;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,15 +29,17 @@ public class RecipeBookController {
     private final RecipeBookService recipeBookService;
     private final RecipePageService recipePageService;
     private final UserRepository userRepository;
+    private final RecipeBookRepository recipeBookRepository;
 
     @Autowired
     public RecipeBookController(UserService userService,
                                 RecipeBookService recipeBookService,
-                                RecipePageService recipePageService, UserRepository userRepository) {
+                                RecipePageService recipePageService, UserRepository userRepository, RecipeBookRepository recipeBookRepository) {
         this.userService = userService;
         this.recipeBookService = recipeBookService;
         this.recipePageService = recipePageService;
         this.userRepository = userRepository;
+        this.recipeBookRepository = recipeBookRepository;
     }
 
     //get single book
@@ -51,16 +57,39 @@ public class RecipeBookController {
     }
 
     //get all books by user
+//    @GetMapping("/books")
+//    public String getAllBooks( Model model){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if(auth != null && auth.isAuthenticated()){
+//            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+//            String email = userDetails.getUsername();
+//
+//            UserDTO user = userService.findByEmail(email);
+//            List <RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(user.getId());
+//            model.addAttribute("recipeBooks", recipeBooks);
+//            return "/fragments/allBooks";
+//        }else{
+//            return "redirect:/error/404";
+//        }
+//    }
+
+// Getting all books through pagination:
     @GetMapping("/books")
-    public String getAllBooks( Model model){
+    public String getAllBooks(
+            @RequestParam(defaultValue ="0") int page,
+            @RequestParam(defaultValue = "12") int size,
+            Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if(auth != null && auth.isAuthenticated()){
+            Pageable pageable = PageRequest.of(page,size);
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
             String email = userDetails.getUsername();
 
             UserDTO user = userService.findByEmail(email);
-            List <RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(user.getId());
+//            List <RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(user.getId());
+            Page <RecipeBookDTO> recipeBooks = recipeBookService.findAllRecipeBooks(user.getId(),pageable);
             model.addAttribute("recipeBooks", recipeBooks);
             return "/fragments/allBooks";
         }else{
