@@ -17,10 +17,12 @@
                     <div class="alert alert-light" style="text-align: center">Oops! Cook book could not be saved.</div>
                 </div>
                 <div class="card-header" id = heading_container>
-                    <h2 class="text-center">Create New Recipe</h2>
+                    <h2 class="text-center">Edit Recipe</h2>
                 </div>
                 <div class="card-body" id="card_container">
-                    <form method="post" role="form" th:action="@{/recipe/save}" th:object="${recipePage}" id="recipePage">
+                    <form method="post" role="form" th:action="@{/recipe/updateRecipe/save}" th:object="${recipePage}" id="recipePage">
+                        <input hidden th:field="*{id}"/>
+
                         <div class="form-group mb-3">
                             <label class="form-label">Recipe Title</label>
                             <input class="form-control"
@@ -52,26 +54,33 @@
 
                         <fieldset>
                             <div class= "form-group mb-3">
-                            <label class="form-label"> Ingredients</label>
+                                <label class="form-label"> Ingredients</label>
                                 <div >
-                            <input  class="form control form-control-sm" id="ingredient" type="text" name="ingredient" style="border-color: lightgray"/>
-                            <button type="button" id="addIngredient" >Add Ingredient</button>
+
+                                    <input  class="form control form-control-sm"
+                                            id="ingredient" type="text"
+                                            name="ingredient"
+                                            style="border-color: lightgray; width: 50%"/>
+                                    <button type="button" id="addIngredient" >Add Ingredient</button>
                                 </div>
                             </div>
-
                         </fieldset>
+
                         <div class="form-group mb-3" id="button_container">
-                            <button type="submit"  value= "submitForm" class ="roundedButton" style="width:150px; margin-left: 80px">Create Recipe</button>
+                            <button type="submit"  value= "submitForm" class ="roundedButton" style="width:150px; margin-left: 80px">Edit Recipe</button>
                         </div>
-                    </form>
                     <div id="ingredients_container">
-                        <ul id="ingredientsContainer"></ul>
+                        <ul id="ingredientsContainer">
+                            <li class="ingredient_li" th:each="ingredient : *{ingredients}" th:text="${ingredient}">
+                            </li>
+                        </ul>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-<script src="/js/page.js"></script>
+    <script src="/js/page.js"></script>
 </section>
 </body>
 </html>

@@ -11,7 +11,7 @@ public interface RecipePageService {
     RecipePageDTO saveRecipePage(Long userId, RecipePageDTO recipePageDTO);
     void savePageToBook(Long bookId, RecipePageDTO recipePageDTO);
     void savePagesToBook(Long bookId, List<RecipePageDTO> pages);
-    void updateRecipePage(Long userId, RecipePageDTO recipePageDTO);
+    void updateRecipePage(RecipePageDTO recipePageDTO);
     void deleteRecipePage(Long userId, RecipePageDTO recipePageDTO);
     RecipePageDTO findRecipePageByTitle(String title);
     RecipePageDTO findRecipePageById(Long id);

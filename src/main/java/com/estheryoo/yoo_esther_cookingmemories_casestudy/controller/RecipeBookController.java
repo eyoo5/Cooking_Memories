@@ -114,7 +114,7 @@ public class RecipeBookController {
 
         if(result.hasErrors()){
             model.addAttribute("recipeBook", recipeBook);
-            return "redirect:/book/createBook?error";
+            return "redirect:/book/editBook?error";
         }
 
         RecipeBookDTO savedBook = recipeBookService.updateRecipeBook(recipeBook);

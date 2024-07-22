@@ -94,15 +94,22 @@ public class RecipePageServiceImpl implements RecipePageService {
 
     //update Recipe page
     @Override
-    public void updateRecipePage(Long userId, RecipePageDTO recipePageDTO){
-        Recipe_Page recipePage = recipePageRepository.findByTitle(recipePageDTO.getTitle());
+    public void updateRecipePage( RecipePageDTO recipePageDTO){
+        Recipe_Page recipePage = recipePageRepository.findById(recipePageDTO.getId())
+                .orElseThrow(()-> new RuntimeException("Recipe Page not found with id: " + recipePageDTO.getId()));
         if(recipePage != null){
             recipePage.setTitle(recipePageDTO.getTitle());
+
             if(recipePageDTO.hasDescription()){
                 recipePage.setDescription(recipePageDTO.getDescription());
             }
+
             if(recipePageDTO.hasVideoLink()){
                 recipePage.setVideoLink(recipePageDTO.getVideoLink());
+            }
+
+            if(recipePageDTO.hasIngredients()){
+                recipePage.setIngredients(recipePageDTO.getIngredients());
             }
           recipePageRepository.save(recipePage);
         }else{

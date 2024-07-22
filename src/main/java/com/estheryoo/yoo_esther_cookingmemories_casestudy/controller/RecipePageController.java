@@ -74,8 +74,15 @@ public class RecipePageController {
         return "/fragments/createPage";
     }
 
+    @GetMapping("/recipe/update/{recipeId}")
+    public String updateRecipe(@PathVariable Long recipeId, Model model){
+        RecipePageDTO recipePage = recipePageService.findRecipePageById(recipeId);
+        model.addAttribute("recipePage", recipePage);
+        return "/fragments/editPage";
+    }
+
     @PostMapping("/recipe/save")
-    public String saveBook(@ModelAttribute("recipePage") RecipePageDTO recipePage, BindingResult result, Model model){
+    public String saveRecipe(@ModelAttribute("recipePage") RecipePageDTO recipePage, BindingResult result, Model model){
         if(result.hasErrors()){
             model.addAttribute("recipePage", recipePage);
             return "redirect:/book/createBook?error";
@@ -95,6 +102,20 @@ public class RecipePageController {
         } else {
             return "redirect:/recipe/creatPage?error";
         }
+    }
+
+
+
+
+    @PostMapping("/recipe/updateRecipe/save")
+    public String updateRecipe(@ModelAttribute("recipePage") RecipePageDTO recipePage, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("recipePage", recipePage);
+            return "redirect:/book/editPage?error";
+        }
+        recipePageService.updateRecipePage(recipePage);
+        return "redirect:/recipe/" + recipePage.getId();
     }
 
 }
