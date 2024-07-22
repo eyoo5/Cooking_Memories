@@ -44,4 +44,5 @@ public class RecipePageDTO {
     public void addIngredients(List<String> ingredients) {
         this.ingredients.addAll(ingredients);
     }
+
 }

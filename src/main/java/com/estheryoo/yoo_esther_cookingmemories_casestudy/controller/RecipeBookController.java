@@ -78,6 +78,14 @@ public class RecipeBookController {
         return "/fragments/createBook";
     }
 
+    @GetMapping("/book/update/{bookId}")
+    public String updateBook(@PathVariable Long bookId, Model model){
+        //Get 1 Book
+        RecipeBookDTO book = recipeBookService.findRecipeBookById(bookId);
+        model.addAttribute("recipeBook", book);
+        return "/fragments/editBook";
+    }
+
     @PostMapping("/book/save")
     public String saveBook(@Validated @ModelAttribute("recipeBook") RecipeBookDTO recipeBook, BindingResult result, Model model){
 
@@ -100,4 +108,16 @@ public class RecipeBookController {
         }
     }
 
+
+    @PostMapping("/book/updateBook/save")
+    public String updateBook(@Validated @ModelAttribute("recipeBook") RecipeBookDTO recipeBook, BindingResult result, Model model){
+
+        if(result.hasErrors()){
+            model.addAttribute("recipeBook", recipeBook);
+            return "redirect:/book/createBook?error";
+        }
+
+        RecipeBookDTO savedBook = recipeBookService.updateRecipeBook(recipeBook);
+        return "redirect:/book/" + recipeBook.getId();
+    }
 }

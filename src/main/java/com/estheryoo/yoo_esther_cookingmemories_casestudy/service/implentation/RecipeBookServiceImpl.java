@@ -71,6 +71,37 @@ public class RecipeBookServiceImpl implements RecipeBookService {
     }
 
     @Override
+    public RecipeBookDTO updateRecipeBook( RecipeBookDTO recipeBookDTO){
+        Recipe_Book recipeBook = recipeBookRepository.findById(recipeBookDTO.getId())
+                .orElseThrow(()-> new RuntimeException("Recipe book not found"));
+
+        if(!recipeBookDTO.getTitle().equals( recipeBook.getTitle())){
+            recipeBook.setTitle(recipeBookDTO.getTitle());
+        }
+
+        if(recipeBookDTO.hasDescription()){
+            recipeBook.setDescription(recipeBookDTO.getDescription());
+        }
+
+        //converts list of Strings to Entities
+        if(recipeBookDTO.hasPages()){
+            List<Recipe_Page> recipePages = new ArrayList<>();
+            for(String pageId: recipeBookDTO.getPages()){
+                Long recipeId = Long.parseLong(pageId);
+                Recipe_Page recipePageEntity = recipePageRepository.findById(recipeId)
+                        .orElseThrow(()-> new RuntimeException("Recipe page not found in updateRecipeBook"));
+                recipePages.add(recipePageEntity);
+            }
+            recipeBook.setPages(recipePages);
+        }
+
+        Recipe_Book savedBook = recipeBookRepository.save(recipeBook);
+        return convertEntityToDTO(savedBook);
+    }
+
+
+
+    @Override
     public RecipeBookDTO findRecipeBookByTitle(String title){
         Recipe_Book book = recipeBookRepository.findByTitle(title);
         return convertEntityToDTO(book);

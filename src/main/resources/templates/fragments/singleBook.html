@@ -6,14 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/book.css} " />
-    <title>User</title>
+    <title>Cook Book</title>
 </head>
 <body>
 
 <section id="section_container" layout:fragment="content" >
 
+    <div style="display: flex; flex-direction: row;" th:if="${recipeBook}">
     <div id="books_information_container" >
-        <div th:if="${recipeBook}">
+        <div >
         <h2 class="heading" th:text="${recipeBook.title}" > </h2>
             <table>
                 <tr>
@@ -31,6 +32,14 @@
         </div>
     </div>
 
+    <div id="create_buttons_container">
+        <div id="create_book_container">
+            <button type="button" class="create_button">
+                <a th:href="@{/book/update/{bookId}(bookId=${recipeBook.id})}" class="go_to_link"> Edit Cook Book</a>
+            </button>
+        </div>
+    </div>
+    </div>
 
     <div id="recipes_container">
         <div class ="card" id="recipe_container">
@@ -39,7 +48,7 @@
 
                 <div id="search_and_create_container">
                     <button type="button" class="create_button">
-                        <a th:href="@{/book/createBook}" class="go_to_link"> + Add Recipe</a>
+                        <a th:href="@{/recipe/createRecipe}" class="go_to_link"> + Add Recipe</a>
                     </button>
 
                     <div class="search_bar">

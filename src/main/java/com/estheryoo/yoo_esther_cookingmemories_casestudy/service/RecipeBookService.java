@@ -10,6 +10,7 @@ import java.util.List;
 @Component
 public interface RecipeBookService {
     RecipeBookDTO saveRecipeBook(Long userId, RecipeBookDTO recipeBookDTO);
+    RecipeBookDTO updateRecipeBook(RecipeBookDTO recipeBookDTO);
     void deleteRecipeBook(Long userId);
     RecipeBookDTO findRecipeBookByTitle(String title);
     RecipeBookDTO findRecipeBookById(Long id);
