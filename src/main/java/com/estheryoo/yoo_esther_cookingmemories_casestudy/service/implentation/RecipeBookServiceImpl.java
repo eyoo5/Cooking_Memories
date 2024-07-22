@@ -127,8 +127,8 @@ public class RecipeBookServiceImpl implements RecipeBookService {
     }
 
     @Override
-    public void deleteRecipeBook(Long userId) {
-        Recipe_Book book = recipeBookRepository.findById(userId)
+    public void deleteRecipeBook(Long bookId) {
+        Recipe_Book book = recipeBookRepository.findById(bookId)
                 .orElseThrow(()-> new RuntimeException("User not found"));
         recipeBookRepository.delete(book);
     }

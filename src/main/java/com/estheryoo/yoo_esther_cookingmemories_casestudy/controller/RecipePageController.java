@@ -50,6 +50,7 @@ public class RecipePageController {
         return "/fragments/singlePage";
     }
 
+    //get all recipes by user
     @GetMapping("/recipes")
     public String getAllPages( Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -67,6 +68,7 @@ public class RecipePageController {
         }
     }
 
+    //get create new recipe view
     @GetMapping("/recipe/createRecipe")
     public String createRecipe(Model model){
         RecipePageDTO recipePage = new RecipePageDTO();
@@ -74,6 +76,7 @@ public class RecipePageController {
         return "/fragments/createPage";
     }
 
+    //get update recipe view
     @GetMapping("/recipe/update/{recipeId}")
     public String updateRecipe(@PathVariable Long recipeId, Model model){
         RecipePageDTO recipePage = recipePageService.findRecipePageById(recipeId);
@@ -81,6 +84,7 @@ public class RecipePageController {
         return "/fragments/editPage";
     }
 
+    //save new recipe
     @PostMapping("/recipe/save")
     public String saveRecipe(@ModelAttribute("recipePage") RecipePageDTO recipePage, BindingResult result, Model model){
         if(result.hasErrors()){
@@ -104,9 +108,7 @@ public class RecipePageController {
         }
     }
 
-
-
-
+    //update recipe
     @PostMapping("/recipe/updateRecipe/save")
     public String updateRecipe(@ModelAttribute("recipePage") RecipePageDTO recipePage, BindingResult result, Model model) {
 
@@ -116,6 +118,18 @@ public class RecipePageController {
         }
         recipePageService.updateRecipePage(recipePage);
         return "redirect:/recipe/" + recipePage.getId();
+    }
+
+    //delete recipe
+    @GetMapping("/recipe/delete/{pageId}")
+    public String deleteBook(@PathVariable Long pageId){
+        RecipePageDTO recipePage = recipePageService.findRecipePageById(pageId);
+        if(recipePage != null){
+            recipePageService.deleteRecipePage(recipePage.getId());
+            return"/fragments/deleted";
+        }else{
+            return "redirect:/error/404";
+        }
     }
 
 }

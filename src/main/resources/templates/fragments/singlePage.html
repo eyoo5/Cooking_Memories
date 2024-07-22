@@ -11,7 +11,7 @@
 <body>
 
 <section id="section_container" layout:fragment="content" >
-
+<div style="display: flex; flex-direction: row;" th:if="${recipePage}">
     <div id="page_information_container" >
         <div th:if="${recipePage}">
             <h2 class="heading" th:text="${recipePage.title}" > </h2>
@@ -39,6 +39,40 @@
     </div>
 
 
+    <div id="create_buttons_container">
+        <div id="create_book_container">
+            <button type="button" class="create_button">
+                <a th:href="@{/recipe/update/{recipeId}(recipeId=${recipePage.id})}" class="go_to_link"> Edit Recipe</a>
+            </button>
+        <button type="button" class="create_button" id="showModalBtn">
+            Delete Recipe
+        </button>
+        </div>
+
+
+        <div class="modal fade" tabindex="-1" aria-hidden="true" id="deleteModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"style="background: #EC6F66;color: whitesmoke">
+                        <h5 class="modal-title" >Delete Recipe</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="xButton"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: center">
+                        <p>Are you sure you want to delete this recipe?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal" id="closeBtn" style="background: #E9E4F0; color: #41295a">Close</button>
+                        <button type="button" class="btn" style="background: #EC6F66">
+                            <a th:href="@{/recipe/delete/{pageId}(pageId=${recipePage.id})}" class="go_to_link" style="color:whitesmoke">
+                                Delete
+                            </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class ="card" id="recipe_steps_container">
         <div class="card-header" style="margin-bottom: 1em; background:#41295a; color:#E9E4F0; display: flex; flex-direction: row; justify-content: space-between" >
@@ -104,7 +138,8 @@
                     <p>No Books</p>
                 </div>
             </div>
-    </div>
+
+    <script src="/js/js.js"></script>
 </section>
 
 </body>

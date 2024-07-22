@@ -11,7 +11,7 @@ import java.util.List;
 public interface RecipeBookService {
     RecipeBookDTO saveRecipeBook(Long userId, RecipeBookDTO recipeBookDTO);
     RecipeBookDTO updateRecipeBook(RecipeBookDTO recipeBookDTO);
-    void deleteRecipeBook(Long userId);
+    void deleteRecipeBook(Long bookId);
     RecipeBookDTO findRecipeBookByTitle(String title);
     RecipeBookDTO findRecipeBookById(Long id);
     List<RecipeBookDTO> getAllRecipeBooks(Long userId);

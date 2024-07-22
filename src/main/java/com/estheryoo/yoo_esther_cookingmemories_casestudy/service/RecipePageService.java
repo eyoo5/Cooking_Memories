@@ -12,7 +12,7 @@ public interface RecipePageService {
     void savePageToBook(Long bookId, RecipePageDTO recipePageDTO);
     void savePagesToBook(Long bookId, List<RecipePageDTO> pages);
     void updateRecipePage(RecipePageDTO recipePageDTO);
-    void deleteRecipePage(Long userId, RecipePageDTO recipePageDTO);
+    void deleteRecipePage(Long userId);
     RecipePageDTO findRecipePageByTitle(String title);
     RecipePageDTO findRecipePageById(Long id);
     List<RecipePageDTO> getAllRecipePagesByUser(Long id);

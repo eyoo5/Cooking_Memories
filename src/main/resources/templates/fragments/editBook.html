@@ -23,7 +23,6 @@
                 </div>
                 <div class="card-body" id="card_container">
                     <form method="post" role="form" th:action="@{/book/updateBook/save}" th:object="${recipeBook}">
-
                         <input hidden th:field="*{id}"/>
                         <div class="form-group mb-3">
                             <label class="form-label">Book Title</label>

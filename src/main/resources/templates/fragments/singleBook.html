@@ -37,6 +37,33 @@
             <button type="button" class="create_button">
                 <a th:href="@{/book/update/{bookId}(bookId=${recipeBook.id})}" class="go_to_link"> Edit Cook Book</a>
             </button>
+            <button type="button" class="create_button" id="showModalBtn">
+                Delete Cook Book
+            </button>
+
+
+            <div class="modal fade" tabindex="-1" aria-hidden="true" id="deleteModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header"style="background: #EC6F66;color: whitesmoke">
+                            <h5 class="modal-title" >Delete Book</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="xButton"></button>
+                        </div>
+                        <div class="modal-body" style="text-align: center">
+                            <p>Are you sure you want to delete this book?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal" id="closeBtn" style="background: #E9E4F0; color: #41295a">Close</button>
+                            <button type="button" class="btn" style="background: #EC6F66">
+                                <a th:href="@{/book/delete/{bookId}(bookId=${recipeBook.id})}" class="go_to_link" style="color:whitesmoke">
+                                Delete
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     </div>
@@ -82,7 +109,7 @@
             </div>
         </div>
     </div>
-
+<script src="/js/js.js"></script>
 </section>
 
 </body>

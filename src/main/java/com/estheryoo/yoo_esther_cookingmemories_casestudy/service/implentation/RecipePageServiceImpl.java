@@ -118,8 +118,8 @@ public class RecipePageServiceImpl implements RecipePageService {
     }
 
     @Override
-    public void deleteRecipePage(Long userId, RecipePageDTO recipePageDTO){
-        Recipe_Page page = recipePageRepository.findById(recipePageDTO.getId())
+    public void deleteRecipePage(Long recipePageId){
+        Recipe_Page page = recipePageRepository.findById(recipePageId)
                 .orElseThrow(() -> new RuntimeException("Recipe step not found"));
         // Remove the RecipeStep entity
         recipePageRepository.delete(page);

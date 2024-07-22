@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/signedInDefaultLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/book.css} " />
+    <title>Deleted</title>
+</head>
+<body>
+
+<section id="section_container" layout:fragment="content" style="display: flex; justify-content: center; align-items: center; height: 100vh;" >
+    <div style="text-align: center;">
+        <img src="/images/Deleted.png" style="height: 25em; width:30em; border-radius:20px;"/>
+        <p style="margin-top: 2em">Bye Bye! Delete successful!</p>
+    </div>
+</section>
+
+</body>
+</html>

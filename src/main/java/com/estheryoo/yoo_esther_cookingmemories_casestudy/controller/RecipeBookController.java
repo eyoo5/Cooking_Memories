@@ -15,10 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -71,6 +68,7 @@ public class RecipeBookController {
         }
     }
 
+    //create new book:
     @GetMapping("/book/createBook")
     public String createBook(Model model){
         RecipeBookDTO recipeBook = new RecipeBookDTO();
@@ -78,6 +76,8 @@ public class RecipeBookController {
         return "/fragments/createBook";
     }
 
+
+    //edit book view:
     @GetMapping("/book/update/{bookId}")
     public String updateBook(@PathVariable Long bookId, Model model){
         //Get 1 Book
@@ -86,6 +86,7 @@ public class RecipeBookController {
         return "/fragments/editBook";
     }
 
+    //Save created book:
     @PostMapping("/book/save")
     public String saveBook(@Validated @ModelAttribute("recipeBook") RecipeBookDTO recipeBook, BindingResult result, Model model){
 
@@ -108,7 +109,7 @@ public class RecipeBookController {
         }
     }
 
-
+    //updating book:
     @PostMapping("/book/updateBook/save")
     public String updateBook(@Validated @ModelAttribute("recipeBook") RecipeBookDTO recipeBook, BindingResult result, Model model){
 
@@ -120,4 +121,17 @@ public class RecipeBookController {
         RecipeBookDTO savedBook = recipeBookService.updateRecipeBook(recipeBook);
         return "redirect:/book/" + recipeBook.getId();
     }
+
+    //delete book
+    @GetMapping("/book/delete/{bookId}")
+    public String deleteBook(@PathVariable Long bookId){
+            RecipeBookDTO recipeBook = recipeBookService.findRecipeBookById(bookId);
+            if(recipeBook != null){
+            recipeBookService.deleteRecipeBook(bookId);
+            return"/fragments/deleted";
+            }else{
+                return "redirect:/error/404";
+            }
+    }
+
 }

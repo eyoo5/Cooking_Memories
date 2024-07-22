@@ -80,6 +80,7 @@ body {
     border-radius: 5px;
     border: transparent;
     margin-right: 1em;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
 }
 
 /*Single Recipe View*/
@@ -186,4 +187,16 @@ ul{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#create_buttons_container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right:3em;
+}
+
+#create_book_container{
+    margin-top: 5em;
 }

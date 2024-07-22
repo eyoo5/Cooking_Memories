@@ -1,4 +1,5 @@
 
+//edit recipe and create new recipe dynamic ingredients list making:
    document.addEventListener("DOMContentLoaded", function() {
    const addIngredientBtn = document.getElementById('addIngredient');
    const ingredientsContainer = document.getElementById('ingredientsContainer');
@@ -82,4 +83,21 @@
    });
 
    });
+
+
+//open delete modal for delete book and delete page
+document.getElementById('showModalBtn').addEventListener('click', function () {
+    const myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    myModal.show();
+});
+
+document.getElementById('xButton').addEventListener('click', function () {
+    const myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    myModal.hide();
+});
+
+document.getElementById('closeBtn').addEventListener('click', function () {
+    const myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    myModal.hide();
+});
 
