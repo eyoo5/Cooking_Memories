@@ -11,54 +11,104 @@
 <body>
 
 <section id="section_container" layout:fragment="content" >
-    <div id="books_recipePage" >
+
+    <div id="page_information_container" >
         <div th:if="${recipePage}">
-            <h3 class="heading" th:text="${recipePage.title}" > </h3>
+            <h2 class="heading" th:text="${recipePage.title}" > </h2>
             <table>
-                <tr>
-                    <td th:text="${recipePage.description}"></td>
-                </tr>
                 <tr>
                     <td th:text="${recipePage.createdAt}"></td>
                 </tr>
+                <tr>
+                    <td th:text="${recipePage.description}"></td>
+                </tr>
             </table>
-            <div>
-                <div th:unless="${recipePage}">
+            <div th:unless="${recipePage}">
+                <div >
                     <p>No Book</p>
                 </div>
             </div>
         </div>
+
+    <div id="list_of_ingredients_container">
+        <h4>Ingredients</h4>
+        <ul th:each=" ingredient: ${recipePage.ingredients}">
+            <li th:text="${ingredient}"></li>
+        </ul>
+    </div>
     </div>
 
-    <div id="recipe_steps">
-        <h3 class = "heading">Recipe Steps: </h3>
-        <div th:if="${recipeSteps}">
-            <table th:each="step:${recipeSteps}">
-                <tr>
-                    <td th:text ="${step.subtitle}"></td>
-                </tr>
-                <tr th:text = "${step.description}"></tr>
-            </table>
+
+
+    <div class ="card" id="recipe_steps_container">
+        <div class="card-header" style="margin-bottom: 1em; background:#41295a; color:#E9E4F0; display: flex; flex-direction: row; justify-content: space-between" >
+            <h3 class="heading" > Recipe Steps: </h3>
+        </div>
+
+        <div id="list_group_container" th:if="${recipeSteps}">
+            <div th:each="step:${recipeSteps}">
+            <div class="list-group">
+                <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1" th:text ="${step.subtitle}"></h5>
+                    <small>
+                        <button>Edit</button>
+                    </small>
+                </div>
+                <p class="mb-1" th:text = "${step.description}"></p>
+                <small>And some small print.</small>
+            </div>
+            </div>
+            </div>
         </div>
         <div th:unless = "${recipeSteps}">
             <p>No Steps</p>
         </div>
     </div>
 
-    <div id="related_books">
-        <h5>Associated Books</h5>
-        <div th:if = "${recipeBooks}">
-            <div th:each= "book:${recipeBooks}">
-                <table>
-                    <tr>
-                        <td th:text = "${book.title}"></td>
-                    </tr>
-                </table>
-            </div>
-            <div th:unless = "${recipeBooks}">
-                <p>No books</p>
-            </div>
+
+
+    <div class ="card" id="related_books">
+        <div class="card-header" style="margin-bottom: 1em; background:#41295a; color:#E9E4F0; display: flex; flex-direction: row; justify-content: space-between" >
+            <h3 class="heading" > Associated Books</h3>
+
+                <div class="search_and_create_container">
+                    <button type="button" class="create_button">
+                        <a th:href="@{/book/createBook}" class="go_to_link"> + Add To Cook Book </a>
+                    </button>
+
+                    <div class="search_bar">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit" >Search</button>
+                        </form>
+                    </div>
+
+                </div>
+
         </div>
+
+            <div id="pages_container" th:if="${recipeBooks}">
+                <div th:each="book:${recipeBooks}">
+                    <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background:white; box-shadow: 10px 10px 5px #948E99;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+                            <h5 class="card-title" th:text="${book.title}">Card title</h5>
+                            <p class="card-text" th:text="${book.description}" style="text-align: center"></p>
+                            <p class="card-text" th:text="${book.createdAt}" ></p>
+                            <button class="roundedButton" >
+                                <a th:href="@{/book/{bookId}(bookId=${book.id})}" class="go_to_link" > Book</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div th:unless="${recipeBooks}">
+                    <p>No Books</p>
+                </div>
+            </div>
     </div>
 </section>
 

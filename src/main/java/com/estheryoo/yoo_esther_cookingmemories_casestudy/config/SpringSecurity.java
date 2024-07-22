@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
+
 
 @Configuration
 @EnableWebSecurity
@@ -43,9 +43,9 @@ public class SpringSecurity {
                         //  .requestMatchers("/users").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/book/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/getAllBooks/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/books").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/recipe/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/recipes/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/recipes").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(

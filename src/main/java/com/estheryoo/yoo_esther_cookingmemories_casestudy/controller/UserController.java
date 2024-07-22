@@ -2,9 +2,7 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.User;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.UserDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.security.CustomUserDetailsService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
@@ -12,7 +10,6 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -20,9 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 

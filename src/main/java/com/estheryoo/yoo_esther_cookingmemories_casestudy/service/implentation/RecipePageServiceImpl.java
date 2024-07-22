@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +33,7 @@ public class RecipePageServiceImpl implements RecipePageService {
 
     //save new recipe to user
     @Override
-    public void saveRecipePage(Long userId, RecipePageDTO recipePageDTO){
+    public RecipePageDTO saveRecipePage(Long userId, RecipePageDTO recipePageDTO){
         Recipe_Page recipePage = new Recipe_Page();
         recipePage.setTitle(recipePageDTO.getTitle());
 
@@ -43,10 +45,14 @@ public class RecipePageServiceImpl implements RecipePageService {
             recipePage.setVideoLink(recipePageDTO.getVideoLink());
         }
 
-        Recipe_Page savedPage = recipePageRepository.save(recipePage);
-        // adding user to saved book
+        if(recipePageDTO.hasIngredients()){
+            recipePage.setIngredients(recipePageDTO.getIngredients());
+        }
+        // adding user to saved page
         User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User not found"));
-        savedPage.setUser(user);
+        recipePage.setUser(user);
+        Recipe_Page savedPage = recipePageRepository.save(recipePage);
+        return convertEntityToDTO(savedPage);
     }
 
     //save one page to a book
@@ -134,9 +140,14 @@ public class RecipePageServiceImpl implements RecipePageService {
 
     @Override
     public List <RecipePageDTO> getAllRecipePagesByBook(Long bookId) {
-        List<Recipe_Page> recipePages = userRepository.findById(bookId).get().getPages();
-        return recipePages.stream().map(this:: convertEntityToDTO)
+        Recipe_Book book = recipeBookRepository.findById(bookId)
+                .orElseThrow(()-> new RuntimeException("Book not found with id in getAllRecipePagesByBook method: " + bookId));
+        if(book.getPages().size() > 1){
+            List<Recipe_Page> recipePages = userRepository.findById(bookId).get().getPages();
+            return recipePages.stream().map(this:: convertEntityToDTO)
                 .collect(Collectors.toList());
+        }
+            return Collections.emptyList();
     }
 
     private RecipePageDTO convertEntityToDTO(Recipe_Page recipePage){
@@ -146,12 +157,20 @@ public class RecipePageServiceImpl implements RecipePageService {
         pageDTO.setCreatedAt(recipePage.getCreatedAt().toString());
         pageDTO.setIngredients(recipePage.getIngredients());
         pageDTO.setDescription(recipePage.getDescription());
-        pageDTO.setVideoLink(recipePage.getVideoLink());
 
-       List <String> steps = recipePage.getSteps().stream()
+        if(recipePage.getVideoLink() != null){
+            pageDTO.setVideoLink(recipePage.getVideoLink());
+        }
+
+        if(recipePage.getSteps().size() > 1){
+        List <String> steps = recipePage.getSteps().stream()
                .map(Recipe_Step::getDescription)
                .collect(Collectors.toList());
+
         pageDTO.setSteps(steps);
+        }else{
+            pageDTO.setSteps(null);
+        }
         return pageDTO;
     }
 }

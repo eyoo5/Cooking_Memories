@@ -1,4 +1,4 @@
-body {
+ body {
     background-image: linear-gradient(to bottom, #f7797d, #FBD786, #C6FFDD);
     background-repeat: no-repeat;
     min-height: 100vh;
@@ -20,15 +20,6 @@ body {
     z-index: 1000;
 }
 
-/*.roundedButton {*/
-/*    border-radius: 5px;*/
-/*    padding: 10px 20px;*/
-/*    font-size: 16px;*/
-/*    color: #41295a;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    font-family: Arial,sans-serif;*/
-/*}*/
 
 #login {
     background:linear-gradient(to right,#EC6F66,#F3A183) ;
@@ -110,3 +101,4 @@ body {
     font-family: Arial, sans-serif;
     font-size: 15px;
 }
+

@@ -11,36 +11,61 @@
 <body>
 
 <section id="section_container" layout:fragment="content" >
-    <div id="books_container" >
+
+    <div id="books_information_container" >
         <div th:if="${recipeBook}">
-        <h3 class="heading" th:text="${recipeBook.title}" > </h3>
+        <h2 class="heading" th:text="${recipeBook.title}" > </h2>
             <table>
-                <tr>
-                    <td th:text="${recipeBook.description}"></td>
-                </tr>
                 <tr>
                     <td th:text="${recipeBook.createdAt}"></td>
                 </tr>
+                <tr>
+                    <td th:text="${recipeBook.description}"></td>
+                </tr>
             </table>
-            <div>
-                <div th:unless="${recipeBook}">
+            <div th:unless="${recipeBook}">
+                <div >
                     <p>No Book</p>
                 </div>
             </div>
         </div>
     </div>
 
+
     <div id="recipes_container">
-        <h3 class="heading" th:if="${recipePages}"> Recipes</h3>
-        <div th:each="page:${recipePages}">
-            <table>
-                <tr th:text="${page.title}"></tr>
-                <tr >
-                    <td th:text="${page.description}"></td>
-                    <td th:text="${page.createdAt}"></td>
-                    <td></td>
-                </tr>
-            </table>
+        <div class ="card" id="recipe_container">
+            <div class="card-header" style="margin-bottom: 1em; background:#41295a; color:#E9E4F0; display: flex; flex-direction: row; justify-content: space-between" >
+                <h3 class="heading" > Recipes </h3>
+
+                <div id="search_and_create_container">
+                    <button type="button" class="create_button">
+                        <a th:href="@{/book/createBook}" class="go_to_link"> + Add Recipe</a>
+                    </button>
+
+                    <div class="search_bar">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit" >Search</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div id="pages_container" th:if="${recipePages}">
+                <div th:each="page:${recipePages}">
+                    <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background:white; box-shadow: 10px 10px 5px #948E99;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+                            <h5 class="card-title" th:text="${page.title}">Card title</h5>
+                            <p class="card-text" th:text="${page.description}" style="text-align: center"></p>
+                            <p class="card-text" th:text="${page.createdAt}" ></p>
+                            <button class="roundedButton" >
+                                <a th:href="@{/recipe/{pageId}(pageId=${page.id})}" class="go_to_link">Recipe</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div th:unless="${recipePages}">
                     <p>No Books</p>

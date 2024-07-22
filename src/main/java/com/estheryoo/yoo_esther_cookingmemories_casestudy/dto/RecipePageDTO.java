@@ -3,6 +3,7 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.dto;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,7 +24,6 @@ public class RecipePageDTO {
 
     private byte[] image;
 
-    @NotEmpty(message="Please add a list of ingredients.")
     private List<String> ingredients;
 
     private List<String> steps;
@@ -33,5 +33,15 @@ public class RecipePageDTO {
     }
     public boolean hasVideoLink(){
         return this.videoLink != null;
+    }
+    public boolean hasIngredients(){
+        return this.ingredients != null;
+    }
+
+    public void addIngredient(String ingredient) {
+        this.ingredients.add(ingredient);
+    }
+    public void addIngredients(List<String> ingredients) {
+        this.ingredients.addAll(ingredients);
     }
 }

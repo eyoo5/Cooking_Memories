@@ -24,7 +24,7 @@ public class Recipe_Page {
     private String videoLink;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private Date createdAt;
 
     @PrePersist

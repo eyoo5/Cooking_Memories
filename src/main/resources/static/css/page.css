@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(to bottom, #f7797d, #FBD786, #C6FFDD);
+    background-image: linear-gradient(to bottom,#FFEDBC,#ff9068);
     background-repeat: no-repeat;
     min-height: 100vh;
     margin: 0;
@@ -17,4 +17,152 @@ body {
 
 .heading {
     font-family: Futura,Trebuchet MS,Arial,sans-serif;
+}
+
+.roundedButton{
+    color: #41295a;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+    border:transparent;
+    line-height: 40px;
+    padding-bottom: 40px;
+    /*background:linear-gradient(to right, #C6FFDD ,#E9E4F0);*/
+    background-color: #E9E4F0;
+    cursor: pointer;
+    position: absolute; /*relative to parent*/
+    bottom: 10px; /* Will be from the bottom*/
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
+}
+
+/*All Recipe View CSS*/
+/*---------------------------------------------------*/
+#recipe_page_container{
+    margin-top: 4em;
+    width:95vw;
+    min-width: 70vw;
+    height: 190vh;
+    padding: 30px;
+    background-color: #E9E4F0;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    border-radius: 10px;
+    border: 1px solid #E9E4F0;
+    color: #41295a;
+    margin-right: 3em;
+}
+
+#page_container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search_and_create_container{
+    display: flex;
+    flex-direction: row;
+    justify-items:right;
+}
+
+
+.go_to_link{
+    text-decoration: none;
+    color: #41295a;
+}
+
+.create_button {
+    color: #41295a;
+    height: 38px;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 5px;
+    border: transparent;
+    margin-right: 1em;
+}
+
+/*Single Recipe View*/
+/*------------------------------------------------*/
+#page_information_container{
+    margin-top: 4em;
+    margin-bottom:2em;
+    padding: 1em;
+    background-color: #FFFF;
+    border-radius: 10px;
+    color: #41295a;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+#related_books{
+    width:95vw;
+    min-width: 70vw;
+    padding: 30px;
+    background-color: #E9E4F0;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    border-radius: 10px;
+    border: 1px solid #E9E4F0;
+    color: #41295a;
+    margin-right: 3em;
+}
+
+#recipe_steps_container{
+    width:95vw;
+    min-width: 70vw;
+    padding: 30px;
+    background-color: #E9E4F0;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    border-radius: 10px;
+    border: 1px solid #E9E4F0;
+    color: #41295a;
+    margin-right: 3em;
+    margin-bottom:2em;
+}
+
+#list_of_ingredients_container{
+    margin-top: 1em;
+}
+
+/*Create Recipe Page View*/
+/*--------------------------------------------*/
+#ingredients_container{
+    display:block;
+    height:auto;
+    margin-bottom:3em;
+}
+ul{
+    border-color: #948E99;
+    height: auto;
+}
+#create_page_container{
+    margin-top: 5em;
+
+}
+
+#card_container{
+    width: 90%;
+    height: auto;
+    padding:2em;
+}
+#heading_container{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding-top:1em;
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
+    background-color: #41295a;
+    color: #E9E4F0;
+}
+
+#button_container{
+    display: flex;
+    justify-content: center;
+}
+#addIngredient{
+    color: #41295a;
+    background-color: #E9E4F0;
+    height: 34px;
+    width: 150px;
+    cursor: pointer;
+    border-radius: 5px;
+    border:transparent;
+    font-family:Futura,Trebuchet MS,Arial,sans-serif;
 }

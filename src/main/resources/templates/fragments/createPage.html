@@ -5,25 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/book.css} " />
-    <title>Create Book</title>
+    <link rel="stylesheet" th:href="@{/css/page.css} " />
+    <title>Create Recipe</title>
 </head>
 <body>
 <section id="section_container" layout:fragment="content" >
-    <div class="container" id="create_book_container">
+    <div class="container" id="create_page_container">
         <div class="row col-md-8 offset-md-2" id="alert_container">
             <div class="card" id="form-container">
                 <div th:if="${param.error}" style="padding-top:40px">
-                    <div class="alert alert-light" style="text-align: center">Oops! You must enter a title to save your cook book.</div>
+                    <div class="alert alert-light" style="text-align: center">Oops! Cook book could not be saved.</div>
                 </div>
                 <div class="card-header" id = heading_container>
                     <h2 class="text-center">Create New Cook Book</h2>
                 </div>
                 <div class="card-body" id="card_container">
-                    <form method="post" role="form" th:action="@{/book/save}" th:object="${recipeBook}">
-
+                    <form method="post" role="form" th:action="@{/recipe/save}" th:object="${recipePage}" id="recipePage">
                         <div class="form-group mb-3">
-                            <label class="form-label">Book Title</label>
+                            <label class="form-label">Recipe Title</label>
                             <input class="form-control"
                                    id="BookTitle"
                                    name="title"
@@ -37,28 +36,42 @@
                         </div>
 
                         <div class="form-group mb-3" >
-                            <label class="form-label">Book Description</label>
+                            <label class="form-label">Recipe Description</label>
                             <textarea  class="form-control"
                                        id="bookDescription"
                                        name="description"
                                        th:field="*{description}"
                                        type="text"
-                                       style="height:15em; width:110%;"
+                                       style="height:10em; width:110%;"
 
-                            > Enter ...</textarea>
+                            > </textarea>
                             <p th:errors="*{description}" class="text-danger"
                                th:if="${#fields.hasErrors('description')}">
                             </p>
                         </div>
+
+                        <fieldset>
+                            <div class= "form-group mb-3">
+                            <label class="form-label"> Ingredients</label>
+                                <div >
+                            <input  class="form control form-control-sm" id="ingredient" type="text" name="ingredient" style="border-color: lightgray"/>
+                            <button type="button" id="addIngredient" >Add Ingredient</button>
+                                </div>
+                            </div>
+
+                        </fieldset>
                         <div class="form-group mb-3" id="button_container">
-                            <button type="submit" class ="roundedButton" style="width:150px; margin-left: 80px">Create Book</button>
+                            <button type="submit"  value= "submitForm" class ="roundedButton" style="width:150px; margin-left: 80px">Create Recipe</button>
                         </div>
                     </form>
+                    <div id="ingredients_container">
+                        <ul id="ingredientsContainer"></ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+<script src="/js/page.js"></script>
 </section>
-
 </body>
 </html>

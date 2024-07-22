@@ -5,6 +5,8 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.security.CustomUserDet
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,11 +28,15 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/landing")
-    public String defaultPage(){return "fragments/home";}
-
-    @GetMapping("/home")
-    public String home(){return "fragments/home";}
+    @GetMapping("/")
+    public String home(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated()){
+            return "fragments/LandingPageSignedIn";
+        }else{
+            return "fragments/LandingPageSignedOut";
+        }
+    }
 
     @GetMapping("/login")
     public String login(){

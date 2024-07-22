@@ -13,6 +13,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserReposit
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class RecipeBookServiceImpl implements RecipeBookService {
 
     //save new book
     @Override
-    public void saveRecipeBook(Long userId, RecipeBookDTO recipeBookDTO){
+    public RecipeBookDTO saveRecipeBook(Long userId, RecipeBookDTO recipeBookDTO){
         Recipe_Book recipeBook = new Recipe_Book();
         recipeBook.setTitle(recipeBookDTO.getTitle());
 
@@ -60,10 +61,13 @@ public class RecipeBookServiceImpl implements RecipeBookService {
             recipeBook.setPages(recipePages);
         }
 
-        Recipe_Book savedBook = recipeBookRepository.save(recipeBook);
         // adding user to saved book
-        User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User not found"));
-        savedBook.setUser(user);
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+        recipeBook.setUser(user);
+
+        Recipe_Book savedBook = recipeBookRepository.save(recipeBook);
+        return convertEntityToDTO(savedBook);
     }
 
     @Override
@@ -101,12 +105,19 @@ public class RecipeBookServiceImpl implements RecipeBookService {
 
     private RecipeBookDTO convertEntityToDTO(Recipe_Book recipeBook){
         RecipeBookDTO bookDTO = new RecipeBookDTO();
+
         bookDTO.setId(recipeBook.getId());
         bookDTO.setTitle(recipeBook.getTitle());
         bookDTO.setDescription(recipeBook.getDescription());
         bookDTO.setCreatedAt(recipeBook.getCreatedAt().toString());
+
+        if(recipeBook.getPages() != null){
         List <String> pages = recipeBook.getPages().stream().map(Recipe_Page::getTitle).collect(Collectors.toList());
         bookDTO.setPages(pages);
+        }else{
+            bookDTO.setPages(null);
+        }
+
         return bookDTO;
     }
 

@@ -203,9 +203,9 @@ public class DummyData implements CommandLineRunner {
         Recipe_Page recipePage = recipePageRepository.findById(pageId).orElse(null);
 
         if (recipeStep != null && recipePage != null) {
-//            if (recipePage.getSteps() == null) {
-//                recipePage.setSteps(new ArrayList<>()); // Initialize if null
-//            }
+            if (recipePage.getSteps() == null) {
+                recipePage.setSteps(new ArrayList<>()); // Initialize if null
+            }
             if(!recipePage.getSteps().contains(recipeStep)){
                 recipeStep.setRecipePage(recipePage);
                 recipePage.getSteps().add(recipeStep);

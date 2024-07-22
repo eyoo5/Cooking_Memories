@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public interface RecipePageService {
-    void saveRecipePage(Long userId, RecipePageDTO recipePageDTO);
+    RecipePageDTO saveRecipePage(Long userId, RecipePageDTO recipePageDTO);
     void savePageToBook(Long bookId, RecipePageDTO recipePageDTO);
     void savePagesToBook(Long bookId, List<RecipePageDTO> pages);
     void updateRecipePage(Long userId, RecipePageDTO recipePageDTO);

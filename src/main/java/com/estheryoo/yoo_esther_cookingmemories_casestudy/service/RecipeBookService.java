@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public interface RecipeBookService {
-    void saveRecipeBook(Long userId, RecipeBookDTO recipeBookDTO);
+    RecipeBookDTO saveRecipeBook(Long userId, RecipeBookDTO recipeBookDTO);
     void deleteRecipeBook(Long userId);
     RecipeBookDTO findRecipeBookByTitle(String title);
     RecipeBookDTO findRecipeBookById(Long id);
