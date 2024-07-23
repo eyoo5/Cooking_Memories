@@ -8,6 +8,8 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageR
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +26,8 @@ public class RecipePageServiceImpl implements RecipePageService {
 
     @Autowired
     public RecipePageServiceImpl(RecipePageRepository recipePageRepository,
-                                  UserRepository userRepository,
-                                  ImageRepository imageRepository, RecipeBookRepository recipeBookRepository) {
+                                 UserRepository userRepository,
+                                 ImageRepository imageRepository, RecipeBookRepository recipeBookRepository) {
         this.recipePageRepository = recipePageRepository;
         this.userRepository = userRepository;
         this.recipeBookRepository = recipeBookRepository;
@@ -49,7 +51,8 @@ public class RecipePageServiceImpl implements RecipePageService {
             recipePage.setIngredients(recipePageDTO.getIngredients());
         }
         // adding user to saved page
-        User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found"));
         recipePage.setUser(user);
         Recipe_Page savedPage = recipePageRepository.save(recipePage);
         return convertEntityToDTO(savedPage);
@@ -143,6 +146,20 @@ public class RecipePageServiceImpl implements RecipePageService {
         List<Recipe_Page> recipePages = userRepository.findById(id).get().getPages();
         return recipePages.stream().map(this:: convertEntityToDTO)
                 .collect(Collectors.toList());
+    }
+
+    //using pagination to retrieve pages in sets to display by user
+    @Override
+    public Page<RecipePageDTO> findAllRecipePagesByUser(Long id, Pageable pageable) {
+        Page <Recipe_Page> recipePages = recipePageRepository.findByUserId(id,pageable);
+        return recipePages.map(this::convertEntityToDTO);
+    }
+
+    //using pagination to retrieve pages in sets to display by book association
+    @Override
+    public Page<RecipePageDTO> findAllRecipePagesByBook(Long id, Pageable pageable) {
+        Page <Recipe_Page> recipePages = recipePageRepository.findByBookId(id,pageable);
+        return recipePages.map(this::convertEntityToDTO);
     }
 
     @Override

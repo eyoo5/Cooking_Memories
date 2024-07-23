@@ -126,8 +126,10 @@ body {
 }
 
 #recipe_container{
+    display:flex;
     width:95vw;
     min-width: 70vw;
+    height: 32em;
     padding: 30px;
     background-color: #E9E4F0;
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
@@ -143,3 +145,10 @@ body {
     height:100px;
 }
 
+.paginationLink{
+    background-color: #E9E4F0;
+    margin:10px;
+    color: #41295a;
+    font-family: Futura,Trebuchet MS,Arial,sans-serif;
+    text-decoration: none;
+}

@@ -30,6 +30,26 @@ public class RecipeStepServiceImpl implements RecipeStepService {
     }
 
     @Override
+    public RecipeStepDTO saveRecipeStep(Long pageId, RecipeStepDTO recipeStepDTO){
+        Recipe_Step recipeStep = new Recipe_Step();
+        //setting user
+        Recipe_Page recipePage = recipePageRepository.findById(pageId)
+                .orElseThrow(() -> new RuntimeException("Page not found"));
+
+        recipeStep.setRecipePage(recipePage);
+        if(recipeStepDTO.hasSubtitle()){
+            recipeStep.setSubtitle(recipeStepDTO.getSubtitle());
+        }
+
+        if(recipeStepDTO.hasDescription()){
+            recipeStep.setDescription(recipeStepDTO.getDescription());
+        }
+
+        Recipe_Step savedStep = recipeStepRepository.save(recipeStep);
+        return convertEntityToDTO(savedStep);
+    }
+
+    @Override
     public void saveRecipeStepToPage(String pageTitle, RecipeStepDTO recipeStepDTO){
         Recipe_Step recipeStep = new Recipe_Step();
 
@@ -57,15 +77,18 @@ public class RecipeStepServiceImpl implements RecipeStepService {
             Recipe_Step recipeStep = recipeStepRepository.findById(recipeStepDTO.getId())
                     .orElseThrow(() -> new RuntimeException("Recipe step not found"));
 
-            if (recipeStepDTO.hasSubtitle()) {
-                recipeStep.setSubtitle(recipeStepDTO.getSubtitle());
-            }
+            if(recipeStep != null){
+                if (recipeStepDTO.hasSubtitle()) {
+                    recipeStep.setSubtitle(recipeStepDTO.getSubtitle());
+                }
 
-            if (recipeStepDTO.hasDescription()) {
-                recipeStep.setDescription(recipeStepDTO.getDescription());
+                if (recipeStepDTO.hasDescription()) {
+                    recipeStep.setDescription(recipeStepDTO.getDescription());
+                }
+                recipeStepRepository.save(recipeStep);
+        }else{
+                throw new RuntimeException("Recipe step not found in update.");
             }
-            recipeStepRepository.save(recipeStep);
-
     }
 
     @Override
@@ -79,6 +102,14 @@ public class RecipeStepServiceImpl implements RecipeStepService {
 
         // Remove the RecipeStep entity
         recipeStepRepository.delete(step);
+    }
+
+    //get single recipe by id
+    @Override
+    public RecipeStepDTO getRecipeStepById(Long id){
+        Recipe_Step recipeStep = recipeStepRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe step not found"));
+        return convertEntityToDTO(recipeStep);
     }
 
     @Override
@@ -97,7 +128,6 @@ public class RecipeStepServiceImpl implements RecipeStepService {
             stepDTO.setId(step.getId());
             stepDTO.setDescription(step.getDescription());
             stepDTO.setSubtitle(step.getSubtitle());
-            stepDTO.setImage(step.getImage().getUploaded());
             stepDTOs.add(stepDTO);
         }
         return stepDTOs;
@@ -108,6 +138,7 @@ public class RecipeStepServiceImpl implements RecipeStepService {
         stepDTO.setId(recipeStep.getId());
         stepDTO.setDescription(recipeStep.getDescription());
         stepDTO.setSubtitle(recipeStep.getSubtitle());
+        stepDTO.setPageId(recipeStep.getRecipePage().getId());
         return stepDTO;
     }
 }

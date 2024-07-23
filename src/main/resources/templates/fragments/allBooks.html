@@ -52,7 +52,7 @@
                 </div>
             </div>
         <div th:if="${recipeBooks.totalPages > 1}">
-            <ul class="pagination">
+            <ul class="pagination" style=" display:flex;justify-content:flex-end; margin-top: 2em;">
                 <li th:class="${recipeBooks.first ? 'disabled' : ''}">
                     <a th:href="@{/books(page=${recipeBooks.number - 1}, size=${recipeBooks.size})}" aria-label="Previous" class="paginationLink">&laquo;</a>
                 </li>
@@ -63,7 +63,6 @@
                 </li>
                 <li th:class="${recipeBooks.last ? 'disabled' : ''}">
                     <a th:href="@{/books(page=${recipeBooks.number + 1}, size=${recipeBooks.size})}" aria-label="Next" class="paginationLink">&raquo;</a>
-                    <span aria-hidden="true">&raquo;</span>
                 </li>
             </ul>
         </div>

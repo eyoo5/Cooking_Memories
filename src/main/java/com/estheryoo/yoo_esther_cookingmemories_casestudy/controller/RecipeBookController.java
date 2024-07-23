@@ -28,8 +28,6 @@ public class RecipeBookController {
     private final UserService userService;
     private final RecipeBookService recipeBookService;
     private final RecipePageService recipePageService;
-    private final UserRepository userRepository;
-    private final RecipeBookRepository recipeBookRepository;
 
     @Autowired
     public RecipeBookController(UserService userService,
@@ -38,41 +36,27 @@ public class RecipeBookController {
         this.userService = userService;
         this.recipeBookService = recipeBookService;
         this.recipePageService = recipePageService;
-        this.userRepository = userRepository;
-        this.recipeBookRepository = recipeBookRepository;
+
     }
 
     //get single book
     @GetMapping("/book/{bookId}")
-    public String getBook (@PathVariable Long bookId, Model model){
+    public String getBook (@PathVariable Long bookId, @RequestParam(defaultValue ="0") int page,
+                           @RequestParam(defaultValue = "12") int size,
+                           Model model){
         //Get 1 Book
         RecipeBookDTO book = recipeBookService.findRecipeBookById(bookId);
         model.addAttribute("recipeBook", book);
 
-        if(book.hasPages()){
-        List<RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByBook(bookId);
+        if(book.getPages().size() > 1){
+            Pageable pageable = PageRequest.of(page,size);
+//        List<RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByBook(bookId);
+            Page<RecipePageDTO> recipePages = recipePageService.findAllRecipePagesByBook(bookId,pageable);
         model.addAttribute("recipePages", recipePages);
         }
         return "/fragments/singleBook";
     }
 
-    //get all books by user
-//    @GetMapping("/books")
-//    public String getAllBooks( Model model){
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//
-//        if(auth != null && auth.isAuthenticated()){
-//            UserDetails userDetails = (UserDetails) auth.getPrincipal();
-//            String email = userDetails.getUsername();
-//
-//            UserDTO user = userService.findByEmail(email);
-//            List <RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(user.getId());
-//            model.addAttribute("recipeBooks", recipeBooks);
-//            return "/fragments/allBooks";
-//        }else{
-//            return "redirect:/error/404";
-//        }
-//    }
 
 // Getting all books through pagination:
     @GetMapping("/books")
@@ -88,7 +72,6 @@ public class RecipeBookController {
             String email = userDetails.getUsername();
 
             UserDTO user = userService.findByEmail(email);
-//            List <RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(user.getId());
             Page <RecipeBookDTO> recipeBooks = recipeBookService.findAllRecipeBooks(user.getId(),pageable);
             model.addAttribute("recipeBooks", recipeBooks);
             return "/fragments/allBooks";

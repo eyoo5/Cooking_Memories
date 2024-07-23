@@ -16,6 +16,9 @@ public interface RecipeBookRepository extends JpaRepository<Recipe_Book,Long> {
 
     Page <Recipe_Book> findByUserId(Long userId, Pageable pageable);
 
+    @Query("SELECT b FROM Recipe_Book b JOIN b.pages p WHERE p.id = :pageId")
+    Page<Recipe_Book> findByPageId(@Param("pageId") Long pageId,Pageable pageable);
+
     @Query("SELECT b FROM Recipe_Book b JOIN b.user u WHERE u.id = :userId")
     List<Recipe_Book> findByUser_Id(@Param("userId") Long userId);
 

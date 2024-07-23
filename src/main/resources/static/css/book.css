@@ -118,6 +118,14 @@ body {
     box-shadow: 10px 10px 1px 0 rgba(0, 0, 255, .2);
 }
 
+.paginationLink{
+    background-color: #E9E4F0;
+    margin:10px;
+    color: #41295a;
+    font-family: Futura,Trebuchet MS,Arial,sans-serif;
+    text-decoration: none;
+}
+
 /*Single Book View*/
 /*-------------------------------------------------------*/
 #books_information_container{

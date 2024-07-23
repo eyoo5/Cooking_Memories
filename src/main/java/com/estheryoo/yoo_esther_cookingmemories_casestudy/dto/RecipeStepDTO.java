@@ -11,8 +11,7 @@ public class RecipeStepDTO {
     private Long id;
     private String subtitle;
     private String description;
-
-    private byte[] image;
+    private Long pageId;
 
     public boolean hasSubtitle(){
         return subtitle != null && !subtitle.isEmpty();
@@ -21,8 +20,11 @@ public class RecipeStepDTO {
         return description != null && !description.isEmpty();
     }
 
-    public boolean hasImage(){
-        return image != null;
+    public boolean hasSubtitle(String subtitle){
+        return subtitle != null && !subtitle.isEmpty();
+    }
+    public boolean hasDescription(String description){
+        return description != null && !description.isEmpty();
     }
 
 }

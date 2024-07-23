@@ -58,9 +58,8 @@ public class UserController {
             String email = userDetails.getUsername();
 
             UserDTO user = userService.findByEmail(email);
-//            List<RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooks(user.getId());
             Page<RecipeBookDTO> recipeBooks = recipeBookService.findAllRecipeBooks(user.getId(),pageable);
-            List<RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByUser(user.getId());
+            Page<RecipePageDTO> recipePages = recipePageService.findAllRecipePagesByUser(user.getId(),pageable);
 
             model.addAttribute("user", user);
             model.addAttribute("recipeBooks", recipeBooks);

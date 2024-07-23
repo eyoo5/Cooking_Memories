@@ -2,6 +2,8 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.service;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,5 +18,7 @@ public interface RecipePageService {
     RecipePageDTO findRecipePageByTitle(String title);
     RecipePageDTO findRecipePageById(Long id);
     List<RecipePageDTO> getAllRecipePagesByUser(Long id);
+    Page<RecipePageDTO> findAllRecipePagesByUser(Long id, Pageable pageable);
     List<RecipePageDTO> getAllRecipePagesByBook(Long id);
+    Page<RecipePageDTO> findAllRecipePagesByBook(Long id, Pageable pageable);
 }

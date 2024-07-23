@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/page.css} " />
-    <title>User</title>
+    <title>Recipes</title>
 </head>
 <body>
 
@@ -50,6 +50,22 @@
                     </div>
                 </div>
             </div>
+
+            <div th:if="${recipePages.totalPages > 1}" >
+                <ul class="pagination" style=" display:flex;justify-content:flex-end; margin-top: 2em;">
+                    <li th:class="${recipePages.first ? 'disabled' : ''}">
+                        <a th:href="@{/user(page=${recipePages.number - 1}, size=${recipePages.size})}" aria-label="Previous" class="paginationLink">&laquo;</a>
+                    </li>
+
+                    <li th:each="pageNumber : ${#numbers.sequence(0, recipePages.totalPages - 1)}" th:class="${recipePages.number == pageNumber ? 'active' : ''}">
+                        <a th:href="@{/user(page=${pageNumber}, size=${recipePages.size})}" th:text="${pageNumber + 1}" class="paginationLink"></a>
+                    </li>
+                    <li th:class="${recipePages.last ? 'disabled' : ''}">
+                        <a th:href="@{/user(page=${recipePages.number + 1}, size=${recipePages.size})}" aria-label="Next" class="paginationLink">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
 

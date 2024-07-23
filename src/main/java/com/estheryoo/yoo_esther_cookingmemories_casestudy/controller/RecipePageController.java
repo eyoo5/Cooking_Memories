@@ -9,6 +9,9 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageServ
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,9 +42,13 @@ public class RecipePageController {
 
     //get single recipe page
     @GetMapping("/recipe/{pageId}")
-    public String getRecipePage(@PathVariable Long pageId, Model model) {
+    public String getRecipePage(@PathVariable Long pageId,
+                                @RequestParam(defaultValue ="0") int page,
+                                @RequestParam(defaultValue = "12") int size,
+                                Model model) {
+        Pageable pageable = PageRequest.of(page,size);
         RecipePageDTO recipePage = recipePageService.findRecipePageById(pageId);
-        List<RecipeBookDTO> recipeBooks = recipeBookService.getAllRecipeBooksByPageId(pageId);
+        Page<RecipeBookDTO> recipeBooks = recipeBookService.findAllRecipeBooksByPageId(pageId,pageable);
         List <RecipeStepDTO> recipeSteps = recipeStepService.getRecipeStepsByPageId(pageId);
 
         model.addAttribute("recipePage", recipePage);
@@ -52,15 +59,20 @@ public class RecipePageController {
 
     //get all recipes by user
     @GetMapping("/recipes")
-    public String getAllPages( Model model) {
+    public String getAllPages(
+            @RequestParam(defaultValue ="0") int page,
+            @RequestParam(defaultValue = "12") int size,
+            Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if(auth != null && auth.isAuthenticated()){
+            Pageable pageable = PageRequest.of(page,size);
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
             String email = userDetails.getUsername();
 
             UserDTO user = userService.findByEmail(email);
-            List <RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByUser(user.getId());
+//            List <RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByUser(user.getId());
+            Page<RecipePageDTO> recipePages = recipePageService.findAllRecipePagesByUser(user.getId(),pageable);
             model.addAttribute("recipePages", recipePages);
             return "/fragments/allPages";
         }else{
@@ -98,8 +110,6 @@ public class RecipePageController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String email = userDetails.getUsername();
             UserDTO user = userService.findByEmail(email);
-
-            System.out.print(recipePage.getIngredients());
 
             RecipePageDTO savedPage = recipePageService.saveRecipePage(user.getId(),recipePage);
             return "redirect:/recipe/" + savedPage.getId();

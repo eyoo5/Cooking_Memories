@@ -19,4 +19,5 @@ public interface RecipeBookService {
     List<RecipeBookDTO> getAllRecipeBooks(Long userId);
     Page<RecipeBookDTO> findAllRecipeBooks(Long userId,Pageable pageable);
     List<RecipeBookDTO> getAllRecipeBooksByPageId(Long pageId);
+    Page<RecipeBookDTO> findAllRecipeBooksByPageId(Long pageId,Pageable pageable);
 }

@@ -22,7 +22,7 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
-/*Stores, deletes, and updates books*/
+/*Stores, deletes, and updates cook books*/
 
 @Service
 public class RecipeBookServiceImpl implements RecipeBookService {
@@ -126,8 +126,16 @@ public class RecipeBookServiceImpl implements RecipeBookService {
     @Override
     public Page<RecipeBookDTO> findAllRecipeBooks(Long userId, Pageable pageable){
         Page<Recipe_Book> recipeBooksPage = recipeBookRepository.findByUserId(userId,pageable);
-        return recipeBooksPage.map(recipeBook -> convertEntityToDTO(recipeBook));
+        return recipeBooksPage.map(this:: convertEntityToDTO);
     }
+    //using pagination to retrieve books associated to a page:
+
+    @Override
+    public Page<RecipeBookDTO> findAllRecipeBooksByPageId(Long id, Pageable pageable){
+        Page<Recipe_Book> recipeBooksPage = recipeBookRepository.findByPageId(id,pageable);
+        return recipeBooksPage.map(this:: convertEntityToDTO);
+    }
+
 
     @Override
     public List <RecipeBookDTO> getAllRecipeBooksByPageId(Long pageId){
