@@ -18,4 +18,4 @@ and bootstrap modal implementations.
 Theoretically, cook books were supposed to be able to be shared through links.
 In the future, I would implement recipe sharing just with a link, like Google Docs.
 Recipe steps would also have an image option.
-There would also be a spot for Youtube links on recipe pages. 
+There would also be a spot for Youtube links on recipe pages and the search functionalities would work.

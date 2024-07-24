@@ -62,7 +62,7 @@
             <h2 class="heading" th:text="${recipePage.title}" > </h2>
             <table>
                 <tr>
-                    <td th:text="${recipePage.createdAt}"></td>
+                    <td th:text="'Created: '+ ${recipePage.createdAt}'"></td>
                 </tr>
                 <tr>
                     <td th:text="${recipePage.description}"></td>

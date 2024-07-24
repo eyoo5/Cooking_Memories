@@ -9,7 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -192,7 +195,12 @@ public class RecipePageServiceImpl implements RecipePageService {
         RecipePageDTO pageDTO = new RecipePageDTO();
         pageDTO.setId(recipePage.getId());
         pageDTO.setTitle(recipePage.getTitle());
-        pageDTO.setCreatedAt(recipePage.getCreatedAt().toString());
+
+        Date createdAt = new Date(recipePage.getCreatedAt().getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String formattedDate = formatter.format(createdAt);
+
+        pageDTO.setCreatedAt(formattedDate);
         pageDTO.setIngredients(recipePage.getIngredients());
         pageDTO.setDescription(recipePage.getDescription());
 

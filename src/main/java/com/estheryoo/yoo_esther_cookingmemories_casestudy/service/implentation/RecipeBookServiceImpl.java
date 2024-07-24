@@ -16,7 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -161,7 +163,11 @@ public class RecipeBookServiceImpl implements RecipeBookService {
         bookDTO.setId(recipeBook.getId());
         bookDTO.setTitle(recipeBook.getTitle());
         bookDTO.setDescription(recipeBook.getDescription());
-        bookDTO.setCreatedAt(recipeBook.getCreatedAt().toString());
+
+        Date createdAt = new Date(recipeBook.getCreatedAt().getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String formattedDate = formatter.format(createdAt);
+        bookDTO.setCreatedAt(formattedDate);
 
         if(recipeBook.getImage()!= null){
             Image image = recipeBook.getImage();

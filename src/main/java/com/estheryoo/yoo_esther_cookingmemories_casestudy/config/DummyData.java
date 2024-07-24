@@ -101,7 +101,7 @@ public class DummyData implements CommandLineRunner {
             user1.setLastName(lastName);
             user1.setEmail(email);
             String password = passwordEncoder.encode("123");
-            user1.setPassword(password);// You may want to encode this password
+            user1.setPassword(password);
 
             //setting admin role
             Role admin = roleRepository.findByName("ROLE_ADMIN");
