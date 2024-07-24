@@ -1,7 +1,6 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.service.implentation;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Image;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Book;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
@@ -15,14 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import java.util.stream.Collectors;
 
-/*Stores, deletes, and updates cook books*/
+/*
+Methods connect the repository to find recipe book information and
+converts this into a user DTO (Data Transfer Object)
+It performs CRUD operations for recipe books.
+*/
 
 @Service
 public class RecipeBookServiceImpl implements RecipeBookService {
@@ -128,8 +131,9 @@ public class RecipeBookServiceImpl implements RecipeBookService {
         Page<Recipe_Book> recipeBooksPage = recipeBookRepository.findByUserId(userId,pageable);
         return recipeBooksPage.map(this:: convertEntityToDTO);
     }
-    //using pagination to retrieve books associated to a page:
 
+
+    //using pagination to retrieve books associated to a page:
     @Override
     public Page<RecipeBookDTO> findAllRecipeBooksByPageId(Long id, Pageable pageable){
         Page<Recipe_Book> recipeBooksPage = recipeBookRepository.findByPageId(id,pageable);
@@ -158,6 +162,11 @@ public class RecipeBookServiceImpl implements RecipeBookService {
         bookDTO.setTitle(recipeBook.getTitle());
         bookDTO.setDescription(recipeBook.getDescription());
         bookDTO.setCreatedAt(recipeBook.getCreatedAt().toString());
+
+        if(recipeBook.getImage()!= null){
+            Image image = recipeBook.getImage();
+            bookDTO.setImageId(image.getId());
+        }
 
         if(recipeBook.getPages() != null){
         List <String> pages = recipeBook.getPages().stream().map(Recipe_Page::getTitle).collect(Collectors.toList());

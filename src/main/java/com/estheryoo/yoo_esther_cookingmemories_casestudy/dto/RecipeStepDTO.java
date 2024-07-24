@@ -6,6 +6,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 
+/*
+Data Transfer Object for Step Information.
+*/
 
 public class RecipeStepDTO {
     private Long id;
@@ -27,4 +30,13 @@ public class RecipeStepDTO {
         return description != null && !description.isEmpty();
     }
 
+    @Override
+    public String toString() {
+        return "RecipeStepDTO{" +
+                "id=" + id +
+                ", subtitle='" + subtitle + '\'' +
+                ", description='" + description + '\'' +
+                ", pageId=" + pageId +
+                '}';
+    }
 }

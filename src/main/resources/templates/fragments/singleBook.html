@@ -13,7 +13,51 @@
 <section id="section_container" layout:fragment="content" >
 
     <div style="display: flex; flex-direction: row;" th:if="${recipeBook}">
-    <div id="books_information_container" >
+
+    <div id="upload_container">
+        <div th:if="${recipeBook.imageId}" style="margin-bottom: 1em;display: flex; justify-content: center; " >
+            <img th:src="@{/image/{imageId}(imageId=${recipeBook.imageId})}"
+                 alt="Profile Picture" style="max-width: 400px; max-height: 300px; border-radius: 10px; ">
+        </div>
+        <button type="button" class="create_button" id="showUploadModalBtn" style="box-shadow: 0 0 0 0 ; background: #41295a; color: #E9E4F0; margin-top:1em">
+            Upload Photo
+        </button>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" aria-hidden="true" id="uploadModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header"style="background: #41295a;color: whitesmoke">
+                    <h5 class="modal-title" >Upload Picture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeButton"></button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+
+                    <div class="col-md-6 offset-md-3">
+                        <div>
+                            <div class="alert alert-warning" id="errorContainer"></div>
+                        </div>
+                    </div>
+
+
+                    <form id="uploadForm" th:action="@{/image/upload/2/{relationId}(relationId= ${recipeBook.id})}" th:object="${image}" method="post" enctype="multipart/form-data" style="margin-top:5em">
+                        <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png,.pdf" required>
+                        <button type="submit" class="btn" style="background: #E9E4F0; color:#41295a;">Upload
+                        </button>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal" id="cancelBtn" style="background: #E9E4F0; color: #41295a">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="books_information_container"  >
         <div >
         <h2 class="heading" th:text="${recipeBook.title}" > </h2>
             <table>
@@ -69,7 +113,7 @@
     </div>
 
     <div id="recipes_container">
-        <div class ="card" id="recipe_container" style="height:32em">
+        <div class ="card" id="recipe_container" style="min-height:32em; height:auto">
             <div class="card-header" style="margin-bottom: 1em; background:#41295a; color:#E9E4F0; display: flex; flex-direction: row; justify-content: space-between" >
                 <h3 class="heading" > Recipes </h3>
 
@@ -92,14 +136,24 @@
                 <div th:each="page:${recipePages}">
                     <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background:white; box-shadow: 10px 10px 5px #948E99;">
                         <img src="..." class="card-img-top" alt="...">
+
+                        <div th:if="${page.imageId}">
+                            <img th:src="@{/image/{imageId}(imageId=${page.imageId})}" class="card-img-top"
+                                 alt="Image of Cook Book" style="max-width: 200px; max-height: 200px; border-radius: 10px; margin-top: 10px;">
+                        </div>
+
                         <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
                             <h5 class="card-title" th:text="${page.title}">Card title</h5>
                             <p class="card-text" th:text="${page.description}" style="text-align: center"></p>
                             <p class="card-text" th:text="${page.createdAt}" ></p>
-                            <button class="roundedButton" >
+                        </div>
+
+                        <div class="card-footer"style="background: white; border:none;">
+                            <button  style="background:#E9E4F0; color:#41295a;border-radius:5px; border:transparent;height:40px; width: 90px;margin-bottom:10px">
                                 <a th:href="@{/recipe/{pageId}(pageId=${page.id})}" class="go_to_link">Recipe</a>
                             </button>
                         </div>
+
                     </div>
                 </div>
 

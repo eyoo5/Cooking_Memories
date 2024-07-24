@@ -1,6 +1,5 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeStepDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
@@ -14,6 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+
+/*
+CRUD endpoints for recipe steps
+*/
+
 
 @Controller
 public class RecipeStepController {
@@ -81,4 +86,7 @@ public class RecipeStepController {
         RecipeStepDTO savedStep = recipeStepService.saveRecipeStep(pageId, recipeStep);
         return "redirect:/recipe/" + pageId;
     }
+
+
+
 }

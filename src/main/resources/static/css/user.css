@@ -55,6 +55,7 @@ body {
 #top_container{
     display: flex;
     flex-direction: row;
+    margin-left: 2em;
 }
 
 #section_container{
@@ -72,6 +73,7 @@ body {
 #user_container{
     margin-top: 4em;
     margin-bottom:2em;
+    height: 7em;
     padding: 1em;
     background-color: #FFFF;
     border-radius: 10px;
@@ -80,6 +82,7 @@ body {
 
 #create_buttons_container{
     margin-top: 4em;
+    margin-right: 2em;
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -98,7 +101,7 @@ body {
 #cook_book_container{
     width:95vw;
     min-width: 70vw;
-    height: 32em;
+    height: auto;
     padding: 30px;
     background-color: #E9E4F0;
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
@@ -129,7 +132,7 @@ body {
     display:flex;
     width:95vw;
     min-width: 70vw;
-    height: 32em;
+    height:auto;
     padding: 30px;
     background-color: #E9E4F0;
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
@@ -151,4 +154,25 @@ body {
     color: #41295a;
     font-family: Futura,Trebuchet MS,Arial,sans-serif;
     text-decoration: none;
+}
+
+/*file upload css in user*/
+#upload_container{
+    margin-top: 4em;
+    margin-bottom: 2em;
+    margin-right: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.create_button{
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+
+#profile_pic{
+
+}
+
+#file{
+    margin-bottom: 2em;
 }

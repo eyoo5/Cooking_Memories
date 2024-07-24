@@ -5,6 +5,14 @@ import lombok.*;
 import java.util.*;
 
 
+/*
+Recipe Page table create an ingredient table when needed.
+It has a M:1 relationship to a user.
+It as a 1:M relationship to steps.
+It has a M:M relationship with books.
+It has 1:1 relationship with images.
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -49,7 +57,7 @@ public class Recipe_Page {
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private Image image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 

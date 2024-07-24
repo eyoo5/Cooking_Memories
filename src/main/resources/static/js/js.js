@@ -102,3 +102,46 @@ document.getElementById('closeBtn').addEventListener('click', function () {
 });
 
 
+
+//open upload image modal
+document.getElementById('showUploadModalBtn').addEventListener('click', function () {
+    const myModal = new bootstrap.Modal(document.getElementById('uploadModal'));
+    myModal.show();
+});
+
+document.getElementById('closeButton').addEventListener('click', function () {
+    const myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    myModal.hide();
+});
+
+document.getElementById('cancelBtn').addEventListener('click', function () {
+    const myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    myModal.hide();
+});
+
+//file upload validations
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('file');
+    const errorContainer = document.getElementById('errorContainer');
+
+    form.addEventListener('submit', function(event) {
+        let file = fileInput.files[0];
+        const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+
+        if (file && file.size > maxSize) {
+            event.preventDefault(); // Prevent the form submission
+            errorContainer.innerHTML = 'File size exceeds the limit (2MB)';
+        } else if(file.size === 0){
+            errorContainer.innerHTML = "Please select a photo to upload."
+        } else{
+            errorContainer.innerHTML = ''; // Clear any previous error messages
+        }
+
+    });
+
+        fileInput.addEventListener('click',function(event){
+            errorContainer.innerHTML=" ";
+        })
+
+});

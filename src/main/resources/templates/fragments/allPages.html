@@ -32,15 +32,26 @@
             </div>
             <div id="page_container" th:if="${recipePages}">
                 <div th:each="page:${recipePages}" >
-                    <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem;margin-bottom: 2em; background: #FFFF; box-shadow: 10px 10px 5px #948E99;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+                    <div class="card" style="display:flex; align-items:center; min-width: 15em; min-height: 20em;max-height:30em; margin-right:2rem;margin-bottom: 2em; background: #FFFF; box-shadow: 10px 10px 5px #948E99;">
+
+                        <div th:if="${page.imageId}">
+                            <img th:src="@{/image/{imageId}(imageId=${page.imageId})}" class="card-img-top"
+                                 alt="Image of Cook Book" style="max-width: 200px; max-height: 200px; border-radius: 10px; margin-top: 10px;">
+                        </div>
+
+
+                        <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
                             <h5 class="card-title" th:text="${page.title}">Card title</h5>
                             <p class="card-text" th:text="${page.description}" style="text-align: center"></p>
                             <p class="card-text" th:text="${page.createdAt}"  ></p>
-                            <button class="roundedButton" >
+
+                        </div>
+
+                        <div class="card-footer"style="background: white; border:none;">
+                            <button style="background:#E9E4F0; color:#41295a;border-radius:5px; border:transparent;height:40px; width: 90px;margin-bottom:10px " >
                                 <a th:href="@{/recipe/{pageId}(pageId=${page.id})}" class="go_to_link">Recipe</a>
                             </button>
+
                         </div>
                     </div>
                 </div>

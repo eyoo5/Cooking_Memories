@@ -3,10 +3,12 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
-import java.util.List;
+
+/*
+Role table has a 1:1 relationship with User
+It has 3 roles: Admin, User, and With_Link
+ */
 
 @Getter
 @Setter

@@ -1,12 +1,16 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.service;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
+
+
+/*
+Methods that use recipe page repository queries to create, get, update, and delete a recipe page .
+Recipe page entities are changed into a DTO (Data Transfer Object).
+ */
 
 @Component
 public interface RecipePageService {
@@ -17,6 +21,7 @@ public interface RecipePageService {
     void deleteRecipePage(Long userId);
     RecipePageDTO findRecipePageByTitle(String title);
     RecipePageDTO findRecipePageById(Long id);
+    RecipePageDTO findRecipePageByStepId(Long id);
     List<RecipePageDTO> getAllRecipePagesByUser(Long id);
     Page<RecipePageDTO> findAllRecipePagesByUser(Long id, Pageable pageable);
     List<RecipePageDTO> getAllRecipePagesByBook(Long id);

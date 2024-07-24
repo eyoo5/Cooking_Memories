@@ -3,7 +3,7 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-/* These are the recipe steps that have a Many to One relationship with Recipe Page*/
+/* The recipe steps table that has a M:1 relationship with recipe steps */
 
 
 @Getter

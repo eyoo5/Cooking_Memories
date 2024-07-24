@@ -3,15 +3,16 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
+/* User table has firstname, lastname, email and password
+It has a 1:1 relationship with Roles
+It has a 1:1 relationship with Images
+It has a 1:M relationship with Book
+It has a 1:M relationship with Recipe Pages
+ */
 
 @Getter
 @Setter@NoArgsConstructor

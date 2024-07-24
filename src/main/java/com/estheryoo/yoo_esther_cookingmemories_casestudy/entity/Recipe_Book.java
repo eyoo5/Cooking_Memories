@@ -7,6 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 
+/*
+Recipe book table has a 1:1 relationship with images.
+It has a M:1 relationship to a user.
+It has a M:M relationship with recipe pages.
+*/
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,7 +43,7 @@ public class Recipe_Book {
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private Image image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User user;
 

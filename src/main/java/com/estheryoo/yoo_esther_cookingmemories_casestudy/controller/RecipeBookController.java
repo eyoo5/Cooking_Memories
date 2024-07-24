@@ -1,10 +1,12 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.ImageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.UserDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
@@ -21,22 +23,27 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+/*
+CRUD endpoints for recipe books
+*/
 
 @Controller
 public class RecipeBookController {
     private final UserService userService;
     private final RecipeBookService recipeBookService;
     private final RecipePageService recipePageService;
+    private final ImageService imageService;
 
     @Autowired
     public RecipeBookController(UserService userService,
                                 RecipeBookService recipeBookService,
-                                RecipePageService recipePageService, UserRepository userRepository, RecipeBookRepository recipeBookRepository) {
+                                RecipePageService recipePageService, UserRepository userRepository,
+                                RecipeBookRepository recipeBookRepository,
+                                ImageService imageService) {
         this.userService = userService;
         this.recipeBookService = recipeBookService;
         this.recipePageService = recipePageService;
-
+        this.imageService = imageService;
     }
 
     //get single book
@@ -54,6 +61,14 @@ public class RecipeBookController {
             Page<RecipePageDTO> recipePages = recipePageService.findAllRecipePagesByBook(bookId,pageable);
         model.addAttribute("recipePages", recipePages);
         }
+
+        if(book.getImageId() != null){
+            ImageDTO image = imageService.getImageById(book.getImageId());
+            model.addAttribute("image", image);
+        }else{
+            model.addAttribute("image", new ImageDTO());
+        }
+
         return "/fragments/singleBook";
     }
 

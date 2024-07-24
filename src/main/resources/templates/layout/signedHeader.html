@@ -4,7 +4,7 @@
 <header th:fragment="header" class="navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style = "font-family: Futura,Trebuchet MS,Arial,sans-serif" >
         <div class="container-fluid" >
-            <a class="navbar-brand" th:href="@{/}">
+            <a class="navbar-brand" th:href="@{/home}">
                 <img id="logo" src="/images/Logo.png" style="width: 50px; height: 40px; border-radius: 5px" >
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +20,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" th:href="@{/recipes}">My Recipes</a>
+                    </li>
+                    <li class="nav-item">
+                        <button style=" margin-left:1em; background: #E9E4F0; height: 35px; width: 5em; text-align: center; padding-bottom:5px; border-radius: 5px;">
+                            <a th:href="@{/logout}" style="color:#41295a;text-decoration: none; text-align: center; padding-top: 7px;">Logout</a>
+                        </button>
                     </li>
                 </ul>
             </div>

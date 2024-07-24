@@ -1,13 +1,15 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.service;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
+
+/*
+Methods that use recipe book repository queries to create, get, update, and delete a recipe book .
+Recipe book entities are changed into a DTO (Data Transfer Object).
+ */
 
 @Component
 public interface RecipeBookService {

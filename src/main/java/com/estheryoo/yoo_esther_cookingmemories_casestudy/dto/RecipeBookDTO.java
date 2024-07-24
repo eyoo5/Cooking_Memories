@@ -1,14 +1,13 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.dto;
 
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Image;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-
 import java.util.List;
+
+
+/*
+Data Transfer Object for Recipe Book
+*/
 
 @Getter
 @Setter
@@ -23,9 +22,7 @@ public class RecipeBookDTO {
     @NotEmpty(message="You must provide a title for your book.")
     private String title;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
-    private Image image;
+    private Long imageId;
 
     private String description;
 
@@ -39,7 +36,15 @@ public class RecipeBookDTO {
         return this.pages != null;
     }
 
-    public boolean hasImage(){
-        return this.image != null;
+    @Override
+    public String toString() {
+        return "RecipeBookDTO{" +
+                "id=" + id +
+                ", createdAt='" + createdAt + '\'' +
+                ", title='" + title + '\'' +
+                ", imageId=" + imageId +
+                ", description='" + description + '\'' +
+                ", pages=" + pages +
+                '}';
     }
 }

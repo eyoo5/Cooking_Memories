@@ -14,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
+/* Spring Security Configurations. Security filter chain for authorizations.*/
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurity {
@@ -46,6 +48,7 @@ public class SpringSecurity {
                         .requestMatchers("/books").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/recipe/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/recipes").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/images/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(
@@ -54,10 +57,11 @@ public class SpringSecurity {
                                 .usernameParameter("email")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/user")
-//                                .successHandler(authenticationSuccessHandler) //Look @ Config
+
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/login?logout") //Redirects URL after logout
                                 .permitAll()
                 );
 

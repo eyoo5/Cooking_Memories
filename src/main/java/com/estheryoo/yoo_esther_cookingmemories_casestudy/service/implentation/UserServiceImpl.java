@@ -10,9 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+/*
+Methods connect the repository to find user information and
+converts this into a user DTO (Data Transfer Object).
+It performs CRUD operations for users.
+*/
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,12 +42,11 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
-//        user.setPassword(userDTO.getPassword());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
         //Find Role Entity and add it to user
-        Role roleEntity = roleRepository.findByName("USER");
+        Role roleEntity = roleRepository.findByName("ROLE_USER");
         user.setRole(roleEntity);
-            System.out.println("The role USER was added to user");
 
         userRepository.save(user);
     }
@@ -76,6 +80,10 @@ public class UserServiceImpl implements UserService {
             userDTO.setLastName(user.getLastName());
             userDTO.setEmail(user.getEmail());
             userDTO.setRole(user.getRole().getName());
+            if(user.getImage() != null){
+                Long id = user.getImage().getId();
+            userDTO.setImageId(id);
+            }
             return userDTO;
         }else{
             return null;

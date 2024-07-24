@@ -3,16 +3,21 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.security.CustomUserDetailsService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+
+/*
+Log in and log out endpoints for user. Also holds the home page.
+*/
+
 
 @ComponentScan
 @Controller
@@ -28,14 +33,14 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
-    public String home(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null && authentication.isAuthenticated()){
-            return "fragments/LandingPageSignedIn";
-        }else{
+    @GetMapping("/landing")
+    public String landing(){
             return "fragments/LandingPageSignedOut";
-        }
+    }
+
+    @GetMapping("/home")
+    public String home(){
+            return "fragments/LandingPageSignedIn";
     }
 
     @GetMapping("/login")
@@ -43,39 +48,13 @@ public class LoginController {
         return "fragments/login";
     }
 
-    // validating email redirects back to login with error
-    @PostMapping("/login")
-    public String loggingIn(@RequestParam String email, @RequestParam String password, Model model) {
-            model.addAttribute("error","Incorrect email or password");
-            return "/fragments/login";//return with error page with error message
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/login?logout";
     }
-
-
-
-//    @PostMapping("/login")
-//    public String authenticateUser(@RequestParam("email") String email,
-//                                   @RequestParam("password") String password,
-//                                   Model model) {
-//        try{
-//
-//        // Perform Authentication
-//        Authentication authentication = authenticationManager.authenticate(
-//                new EmailPasswordAuthenticationToken(email, password));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        if(authentication.isAuthenticated()) {
-//            UserDTO userDTO = userService.findByEmail(email);
-//            Long id = userDTO.getId();
-//
-//            return "redirect:/user/"+id;
-//        }else{
-//            model.addAttribute("error","Incorrect email or password");
-//            return "/fragments/login";//return with error page with error message
-//        }
-//        }catch(Exception e){
-//            model.addAttribute("error","An error occured during Login");
-//            return "/fragments/login";
-//        }
-//    }
 
 }

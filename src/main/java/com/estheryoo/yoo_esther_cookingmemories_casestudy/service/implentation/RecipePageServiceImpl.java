@@ -2,35 +2,40 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.service.implentation;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.*;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.ImageRepository;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookRepository;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.*;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+/*
+Methods connect the repository to find recipe page information and
+converts this into a recipe page DTO (Data Transfer Object)
+It performs CRUD operations for recipe pages.
+*/
 
 @Service
 public class RecipePageServiceImpl implements RecipePageService {
     private final RecipePageRepository recipePageRepository;
     private final UserRepository userRepository;
     private final RecipeBookRepository recipeBookRepository;
+    private final RecipeStepRepository recipeStepRepository;
 
     @Autowired
     public RecipePageServiceImpl(RecipePageRepository recipePageRepository,
                                  UserRepository userRepository,
-                                 ImageRepository imageRepository, RecipeBookRepository recipeBookRepository) {
+                                 ImageRepository imageRepository,
+                                 RecipeBookRepository recipeBookRepository,
+                                 RecipeStepRepository recipeStepRepository) {
         this.recipePageRepository = recipePageRepository;
         this.userRepository = userRepository;
         this.recipeBookRepository = recipeBookRepository;
+        this.recipeStepRepository = recipeStepRepository;
     }
 
     //save new recipe to user
@@ -50,6 +55,7 @@ public class RecipePageServiceImpl implements RecipePageService {
         if(recipePageDTO.hasIngredients()){
             recipePage.setIngredients(recipePageDTO.getIngredients());
         }
+
         // adding user to saved page
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new RuntimeException("User not found"));
@@ -142,6 +148,14 @@ public class RecipePageServiceImpl implements RecipePageService {
     }
 
     @Override
+    public RecipePageDTO findRecipePageByStepId(Long id){
+        Recipe_Step step = recipeStepRepository.findById(id).
+                orElseThrow(()-> new RuntimeException("Recipe Step not found with id: " + id));
+        Recipe_Page recipePage = step.getRecipePage();
+        return convertEntityToDTO(recipePage);
+    }
+
+    @Override
     public List <RecipePageDTO> getAllRecipePagesByUser(Long id) {
         List<Recipe_Page> recipePages = userRepository.findById(id).get().getPages();
         return recipePages.stream().map(this:: convertEntityToDTO)
@@ -181,6 +195,11 @@ public class RecipePageServiceImpl implements RecipePageService {
         pageDTO.setCreatedAt(recipePage.getCreatedAt().toString());
         pageDTO.setIngredients(recipePage.getIngredients());
         pageDTO.setDescription(recipePage.getDescription());
+
+        if(recipePage.getImage() != null){
+            Image image = recipePage.getImage();
+            pageDTO.setImageId(image.getId());
+        }
 
         if(recipePage.getVideoLink() != null){
             pageDTO.setVideoLink(recipePage.getVideoLink());

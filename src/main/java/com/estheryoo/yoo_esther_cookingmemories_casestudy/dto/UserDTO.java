@@ -1,11 +1,12 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.dto;
 
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-import java.util.List;
+/*
+Data Transfer Object for User Information
+*/
 
 @Getter
 @Setter
@@ -28,6 +29,12 @@ public class UserDTO {
     private String password;
 
     private String Role;
+
+    private Long imageId;
+
+    public boolean hasImageId(){
+        return imageId != null;
+    }
 
     @Override
     public String toString() {

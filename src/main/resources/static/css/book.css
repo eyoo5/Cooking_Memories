@@ -132,9 +132,12 @@ body {
     margin-top: 4em;
     margin-bottom:2em;
     padding: 1em;
+    max-width:20em;
+    min-height:20em;
     background-color: #FFFF;
     border-radius: 10px;
     color: #41295a;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2)
 }
 
 table{
@@ -149,4 +152,19 @@ table{
     flex-direction: column;
     position: absolute;
     right:3em;
+}
+
+#upload_container{
+    margin-top: 4em;
+    margin-right: 2em;
+    margin-left: 1em;
+    margin-bottom: 2em;
+    min-height: 10em;
+    background: whitesmoke;
+    padding:1em;
+    border-radius: 10px;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

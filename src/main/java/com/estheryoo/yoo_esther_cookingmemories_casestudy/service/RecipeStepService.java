@@ -2,8 +2,12 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.service;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeStepDTO;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
+
+/*
+Methods that use recipe step repository queries to create, get, update, and delete a recipe step .
+Recipe step entities are changed into a DTO (Data Transfer Object).
+ */
 
 @Component
 public interface RecipeStepService {

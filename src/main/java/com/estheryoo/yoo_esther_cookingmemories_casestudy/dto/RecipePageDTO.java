@@ -2,9 +2,12 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-
-import java.util.ArrayList;
 import java.util.List;
+
+
+/*
+Data Transfer Object for Recipe Page. Has methods to check if variables are not null.
+*/
 
 @Getter
 @Setter
@@ -22,7 +25,7 @@ public class RecipePageDTO {
 
     private String videoLink;
 
-    private byte[] image;
+    private Long imageId;
 
     private List<String> ingredients;
 
@@ -38,11 +41,18 @@ public class RecipePageDTO {
         return this.ingredients != null;
     }
 
-    public void addIngredient(String ingredient) {
-        this.ingredients.add(ingredient);
-    }
-    public void addIngredients(List<String> ingredients) {
-        this.ingredients.addAll(ingredients);
-    }
 
+    @Override
+    public String toString() {
+        return "RecipePageDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", description='" + description + '\'' +
+                ", videoLink='" + videoLink + '\'' +
+                ", imageId=" + imageId +
+                ", ingredients=" + ingredients +
+                ", steps=" + steps +
+                '}';
+    }
 }

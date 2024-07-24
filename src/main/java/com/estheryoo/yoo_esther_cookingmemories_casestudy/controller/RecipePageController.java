@@ -1,13 +1,7 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipePageDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeStepDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.UserDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.*;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+/*
+CRUD endpoints for recipe pages
+*/
 
 @Controller
 public class RecipePageController {
@@ -28,16 +25,19 @@ public class RecipePageController {
     private final RecipeBookService recipeBookService;
     private final RecipePageService recipePageService;
     private final RecipeStepService recipeStepService;
+    private final ImageService imageService;
 
     @Autowired
     public RecipePageController(UserService userService,
                                 RecipeBookService recipeBookService,
                                 RecipePageService recipePageService,
-                                RecipeStepService recipeStepService) {
+                                RecipeStepService recipeStepService,
+                                ImageService imageService) {
         this.userService = userService;
         this.recipeBookService = recipeBookService;
         this.recipePageService = recipePageService;
         this.recipeStepService = recipeStepService;
+        this.imageService = imageService;
     }
 
     //get single recipe page
@@ -54,6 +54,13 @@ public class RecipePageController {
         model.addAttribute("recipePage", recipePage);
         model.addAttribute("recipeBooks", recipeBooks);
         model.addAttribute("recipeSteps", recipeSteps);
+
+        if(recipePage.getImageId() != null){
+            ImageDTO image = imageService.getImageById(recipePage.getImageId());
+            model.addAttribute("image", image);
+        }else{
+            model.addAttribute("image", new ImageDTO());
+        }
         return "/fragments/singlePage";
     }
 
@@ -71,7 +78,6 @@ public class RecipePageController {
             String email = userDetails.getUsername();
 
             UserDTO user = userService.findByEmail(email);
-//            List <RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByUser(user.getId());
             Page<RecipePageDTO> recipePages = recipePageService.findAllRecipePagesByUser(user.getId(),pageable);
             model.addAttribute("recipePages", recipePages);
             return "/fragments/allPages";
@@ -129,6 +135,8 @@ public class RecipePageController {
         recipePageService.updateRecipePage(recipePage);
         return "redirect:/recipe/" + recipePage.getId();
     }
+
+
 
     //delete recipe
     @GetMapping("/recipe/delete/{pageId}")

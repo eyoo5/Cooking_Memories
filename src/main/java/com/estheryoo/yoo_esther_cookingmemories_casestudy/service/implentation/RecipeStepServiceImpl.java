@@ -1,8 +1,7 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy.service.implentation;
 
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
+
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeStepDTO;
-import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Book;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Page;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.Recipe_Step;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.ImageRepository;
@@ -11,10 +10,16 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeStepR
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
+/*
+Methods connect the repository to find recipe step information and
+converts this into a recipe step DTO (Data Transfer Object).
+It performs CRUD operations for recipe steps.
+*/
 
 @Service
 public class RecipeStepServiceImpl implements RecipeStepService {
