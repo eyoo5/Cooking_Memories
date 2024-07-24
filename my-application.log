@@ -1106,3 +1106,5 @@ Action:
 
 Consider defining a bean of type 'com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService' in your configuration.
 
+2024-07-24T14:07:50.718-04:00 ERROR 5757 --- [Yoo_Esther_CookingMemories_CaseStudy] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Column 'user_id' cannot be null
+2024-07-24T14:11:37.103-04:00 ERROR 5846 --- [Yoo_Esther_CookingMemories_CaseStudy] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Column 'user_id' cannot be null

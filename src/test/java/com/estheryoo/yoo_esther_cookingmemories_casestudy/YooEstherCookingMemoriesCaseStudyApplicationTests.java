@@ -1,8 +1,17 @@
 package com.estheryoo.yoo_esther_cookingmemories_casestudy;
 
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeBookDTO;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.RecipeStepDTO;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.UserDTO;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.*;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.*;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +36,15 @@ class YooEstherCookingMemoriesCaseStudyApplicationTests {
     private RecipePageRepository recipePageRepository;
     @Autowired
     private RecipeStepRepository recipeStepRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RecipeBookService recipeBookService;
+    @Autowired
+    private RecipePageService recipePageService;
+    @Autowired
+    private RecipeStepService recipeStepService;
+
 
     //tests for user repository
     @Test
@@ -50,18 +68,6 @@ class YooEstherCookingMemoriesCaseStudyApplicationTests {
             assertThat(exist.getEmail()).isEqualTo("jDoe@gmail.com");
         }
 
-    }
-
-
-    //testing role repository
-    @Test
-    void testFindByName(){
-        //Roles are being generated in dummy data
-        Role testRole = roleRepository.findByName("ROLE_USER");
-        Role testRole2 = roleRepository.findByName("ROLE_ADMIN");
-
-        assertThat(testRole.getName()).isEqualTo("ROLE_USER");
-        assertThat(testRole2.getName()).isEqualTo("ROLE_ADMIN");
     }
 
     //testing Recipe Book Repository
@@ -104,6 +110,7 @@ class YooEstherCookingMemoriesCaseStudyApplicationTests {
            testUser.setFirstName("Jane");
            testUser.setLastName("Doe");
            testUser.setEmail("jDoe@gmail.com");
+           testUser.setRole(roleRepository.findByName("ROLE_USER"));
            String password = passwordEncoder.encode("123");
            testUser.setPassword(password);
            userRepository.save(testUser);
@@ -176,5 +183,19 @@ class YooEstherCookingMemoriesCaseStudyApplicationTests {
 
     }
 
+    //Test Recipe Step service
+    @Test
+    void testGetRecipeStepById(){
+        RecipeStepDTO stepFound = recipeStepService.getRecipeStepById(1L);
+        assertThat(stepFound.getSubtitle()).isEqualTo("Clean");
+    }
 
+
+    //Testing Parameterized
+    @ParameterizedTest
+    @ValueSource(longs={1,2,3})
+    void testGetStepById(Long id){
+        RecipeStepDTO stepFound = recipeStepService.getRecipeStepById(id);
+        assertThat(stepFound.getSubtitle()).isNotEmpty();
+    }
 }

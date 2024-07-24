@@ -42,7 +42,6 @@ public class SpringSecurity {
                         .requestMatchers("/landing").permitAll()
                         .requestMatchers(("/login/**")).permitAll()
                         .requestMatchers("/home").permitAll()
-                        //  .requestMatchers("/users").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/book/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/books").hasAnyRole("ADMIN", "USER")
