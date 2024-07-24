@@ -8,6 +8,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.utils.ImageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
+    @Transactional
     public void uploadImage(MultipartFile file, ImageDTO imageDTO, Long id) throws IOException {
         Image image = new Image();
 
@@ -91,6 +93,7 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
+    @Transactional
     public void updateImage(MultipartFile file,ImageDTO imageDTO) {
         Image imageEntity = imageRepository.findById(imageDTO.getId())
                 .orElseThrow(()-> new RuntimeException("Image not found"));
@@ -99,6 +102,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public void deleteImage(ImageDTO imageDTO){
         Image imageEntity = imageRepository.findById(imageDTO.getId())
                 .orElseThrow(()-> new RuntimeException("Image not found"));
@@ -106,6 +110,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public ImageDTO getImageById(Long imageId) {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()-> new RuntimeException("Image not found"));
@@ -117,6 +122,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public ImageDTO getImageByUserId(Long userId) {
         Image image = imageRepository.findByUserId(userId);
         if(image != null){
@@ -127,6 +133,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public ImageDTO getImageByBookId(Long bookId) {
         Image image = imageRepository.findByBookId(bookId);
         if(image != null){
@@ -137,6 +144,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public ImageDTO getImageByPageId(Long pageId) {
         Image image = imageRepository.findByPageId(pageId);
 
@@ -148,6 +156,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public ImageDTO getImageByStepId(Long stepId) {
         Image image = imageRepository.findByStepId(stepId);
         if(image != null){

@@ -1076,3 +1076,33 @@ org.hibernate.AssertionFailure: force initializing collection loading
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
+2024-07-24T09:48:19.442-04:00 ERROR 2896 --- [Yoo_Esther_CookingMemories_CaseStudy] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.estheryoo.yoo_esther_cookingmemories_casestudy.controller.ImageController required a bean of type 'com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService' in your configuration.
+
+2024-07-24T09:49:19.479-04:00 ERROR 2896 --- [Yoo_Esther_CookingMemories_CaseStudy] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.estheryoo.yoo_esther_cookingmemories_casestudy.controller.ImageController required a bean of type 'com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService' in your configuration.
+
