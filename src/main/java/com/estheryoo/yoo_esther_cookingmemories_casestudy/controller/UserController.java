@@ -10,6 +10,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookServ
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /*
 CRUD endpoints for user
 */
+
 
 @Controller
 public class UserController {

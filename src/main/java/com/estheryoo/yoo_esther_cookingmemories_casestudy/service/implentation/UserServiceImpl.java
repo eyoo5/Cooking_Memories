@@ -6,6 +6,9 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.User;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RoleRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ converts this into a user DTO (Data Transfer Object).
 It performs CRUD operations for users.
 */
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 

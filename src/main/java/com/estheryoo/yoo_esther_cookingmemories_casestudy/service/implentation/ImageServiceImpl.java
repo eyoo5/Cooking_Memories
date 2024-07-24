@@ -5,6 +5,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.entity.*;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.*;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.ImageService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.utils.ImageUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,7 @@ converts this into a image DTO (Data Transfer Object).
 It can save and retrieve images from the database.
 */
 
-
+@Slf4j
 @Service
 public class ImageServiceImpl implements ImageService {
 

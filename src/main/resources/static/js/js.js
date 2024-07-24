@@ -119,6 +119,7 @@ document.getElementById('cancelBtn').addEventListener('click', function () {
     myModal.hide();
 });
 
+
 //file upload validations
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('uploadForm');

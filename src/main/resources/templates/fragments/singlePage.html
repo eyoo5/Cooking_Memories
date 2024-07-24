@@ -62,7 +62,7 @@
             <h2 class="heading" th:text="${recipePage.title}" > </h2>
             <table>
                 <tr>
-                    <td th:text="'Created: '+ ${recipePage.createdAt}'"></td>
+                    <td th:text="${recipePage.createdAt}"></td>
                 </tr>
                 <tr>
                     <td th:text="${recipePage.description}"></td>
@@ -175,7 +175,7 @@
                                  alt="Image of Cook Book" style="max-width: 200px; max-height: 200px; border-radius: 10px; ">
                         </div>
 
-                        <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; ">
+                        <div class="card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center;max-width:15em ">
                             <h5 class="card-title" th:text="${book.title}">Card title</h5>
                             <p class="card-text" th:text="${book.description}" style="text-align: center"></p>
                             <p class="card-text" th:text="${book.createdAt}" ></p>

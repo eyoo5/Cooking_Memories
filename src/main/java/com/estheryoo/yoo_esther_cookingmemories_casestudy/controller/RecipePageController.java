@@ -2,6 +2,7 @@ package com.estheryoo.yoo_esther_cookingmemories_casestudy.controller;
 
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.dto.*;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

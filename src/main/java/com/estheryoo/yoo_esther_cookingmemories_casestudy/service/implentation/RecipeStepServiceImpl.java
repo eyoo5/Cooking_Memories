@@ -8,6 +8,10 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.ImageReposi
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeStepRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
+import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -21,10 +25,13 @@ converts this into a recipe step DTO (Data Transfer Object).
 It performs CRUD operations for recipe steps.
 */
 
+@Slf4j
 @Service
 public class RecipeStepServiceImpl implements RecipeStepService {
+
     private final RecipeStepRepository recipeStepRepository;
     private final RecipePageRepository recipePageRepository;
+
 
     @Autowired
     public RecipeStepServiceImpl(RecipeStepRepository recipeStepRepository,

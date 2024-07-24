@@ -6,6 +6,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookServ
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipePageService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeStepService;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

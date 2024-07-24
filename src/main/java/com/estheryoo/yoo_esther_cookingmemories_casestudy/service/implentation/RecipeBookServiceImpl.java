@@ -10,6 +10,7 @@ import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipeBookR
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.RecipePageRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.repository.UserRepository;
 import com.estheryoo.yoo_esther_cookingmemories_casestudy.service.RecipeBookService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,8 +30,10 @@ converts this into a user DTO (Data Transfer Object)
 It performs CRUD operations for recipe books.
 */
 
+@Slf4j
 @Service
 public class RecipeBookServiceImpl implements RecipeBookService {
+
 
     private final RecipeBookRepository recipeBookRepository;
     private final RecipePageRepository recipePageRepository;
