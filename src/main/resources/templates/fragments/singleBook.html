@@ -134,8 +134,7 @@
 
             <div id="pages_container" th:if="${recipePages}" style="display: flex; flex-direction: row">
                 <div th:each="page:${recipePages}">
-                    <div class="card" style="display:flex; align-items:center; width: 15em; height: 20em;margin-right:2rem; background:white; box-shadow: 10px 10px 5px #948E99;">
-                        <img src="..." class="card-img-top" alt="...">
+                    <div class="card" style="display:flex; align-items:center; width: 15em; min-height: 20em;margin-right:2rem; background:white; box-shadow: 10px 10px 5px #948E99;">
 
                         <div th:if="${page.imageId}">
                             <img th:src="@{/image/{imageId}(imageId=${page.imageId})}" class="card-img-top"
@@ -177,7 +176,7 @@
             </div>
             <div>
                 <div th:unless="${recipePages}">
-                    <p>No Books</p>
+                    <p>No Recipes</p>
                 </div>
             </div>
         </div>

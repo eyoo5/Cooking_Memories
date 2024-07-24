@@ -156,7 +156,7 @@
                         <p class="card-text" th:text="${page.description}" style="text-align: center"></p>
                         <p class="card-text" th:text="${page.createdAt}" ></p>
                     </div>
-                    <div class="card-footer"style="background: white; border:none;">
+                    <div class="card-footer" style="background: white; border:none;">
                         <button  style="background:#E9E4F0; color:#41295a;border-radius:5px; border:transparent;height:40px; width: 90px;margin-bottom:10px ">
                             <a th:href="@{/recipe/{pageId}(pageId=${page.id})}" class="go_to_link">Recipe</a>
                         </button>

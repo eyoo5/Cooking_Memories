@@ -56,7 +56,7 @@ public class RecipeBookController {
         RecipeBookDTO book = recipeBookService.findRecipeBookById(bookId);
         model.addAttribute("recipeBook", book);
 
-        if(book.getPages().size() > 1){
+        if(!book.getPages().isEmpty()){
             Pageable pageable = PageRequest.of(page,size);
 //        List<RecipePageDTO> recipePages = recipePageService.getAllRecipePagesByBook(bookId);
             Page<RecipePageDTO> recipePages = recipePageService.findAllRecipePagesByBook(bookId,pageable);
