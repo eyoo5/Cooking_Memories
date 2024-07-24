@@ -1,5 +1,5 @@
 ## Cooking_Memories
-Cooking memories is a web application that allows users to save their dearest recipes. 
+Cooking Memories is a web application that allows users to save their dearest recipes. 
 Inspired by my own desire to have my mother's cooking recipes forever, Cooking Memories
 allows you to gather and store precious recipes. You are able to organize your recipes
 into books and share with others.
